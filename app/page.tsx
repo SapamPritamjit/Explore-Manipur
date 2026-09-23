@@ -100,18 +100,33 @@ export default function HomePage() {
               Explore breathtaking landscapes, living traditions,
               unforgettable food and experiences across Manipur.
             </p>
-            <Link href="/discover" className="discover-box">
-              <div className="discover-icon">
-                <i className="fa-solid fa-compass"></i>
-              </div>
-              <div className="discover-text">
-                <h3>Discover what makes Manipur unique</h3>
-                <p>Tap to explore the culture, wildlife, traditions and symbols of Manipur.</p>
-              </div>
-              <div className="discover-arrow">
-                <i className="fa-solid fa-arrow-right"></i>
-              </div>
-            </Link>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }} className="cta-row">
+              <Link href="/discover" className="discover-box" style={{ flex: 1 }}>
+                <div className="discover-icon">
+                  <i className="fa-solid fa-compass"></i>
+                </div>
+                <div className="discover-text">
+                  <h3>Discover what makes Manipur unique</h3>
+                  <p>Tap to explore the culture, wildlife, traditions and symbols of Manipur.</p>
+                </div>
+                <div className="discover-arrow">
+                  <i className="fa-solid fa-arrow-right"></i>
+                </div>
+              </Link>
+              <Link href="/ai-planner" className="discover-box" style={{ flex: 1 }}>
+                <div className="discover-icon">
+                  <i className="fa-solid fa-route"></i>
+                </div>
+                <div className="discover-text">
+                  <h3>Plan My Trip</h3>
+                  <p>Build a personalized Manipur itinerary with our smart trip planner.</p>
+                </div>
+                <div className="discover-arrow">
+                  <i className="fa-solid fa-arrow-right"></i>
+                </div>
+              </Link>
+            </div>
+            <style>{`@media (min-width: 768px) { .cta-row { flex-direction: row !important; } }`}</style>
           </div>
         </section>
 
