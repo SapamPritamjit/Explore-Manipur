@@ -3,47 +3,38 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Nav } from "@/components/ui/nav";
+import { getDestinationImage } from "@/lib/destination-images";
 
-type ExploreItem = {
+
+type ApiItem = {
   id: string;
   name: string;
-  category?: string | null;
   description?: string | null;
   imageUrl?: string | null;
   district?: string | null;
-  tags?: string[] | null;
-  cuisine?: string | null;
-  startDate?: string | null;
-  endDate?: string | null;
+  category?: string | null;
 };
 
 export default function DiscoverPage() {
-  const [destinations, setDestinations] = useState<ExploreItem[]>([]);
-  const [food, setFood] = useState<ExploreItem[]>([]);
-  const [experiences, setExperiences] = useState<ExploreItem[]>([]);
-  const [events, setEvents] = useState<ExploreItem[]>([]);
+  const [openCategory, setOpenCategory] = useState<number | null>(null);
+  const [openItems, setOpenItems] = useState<Set<number>>(new Set());
+  const [food, setFood] = useState<ApiItem[]>([]);
+  const [events, setEvents] = useState<ApiItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
     async function load() {
       try {
-        const [destRes, foodRes, expRes, evtRes] = await Promise.all([
-          fetch("/api/explore?type=destinations"),
+        const [fRes, eRes] = await Promise.all([
           fetch("/api/explore?type=food"),
-          fetch("/api/explore?type=experiences"),
           fetch("/api/explore?type=events"),
         ]);
         if (!cancelled) {
-          const destData = destRes.ok ? await destRes.json() : null;
-          const foodData = foodRes.ok ? await foodRes.json() : null;
-          const expData = expRes.ok ? await expRes.json() : null;
-          const evtData = evtRes.ok ? await evtRes.json() : null;
-          setDestinations(destData?.data ?? []);
-          setFood(foodData?.data ?? []);
-          setExperiences(expData?.data ?? []);
-          setEvents(evtData?.data ?? []);
+          const fData = fRes.ok ? await fRes.json() : null;
+          const eData = eRes.ok ? await eRes.json() : null;
+          setFood(fData?.data ?? []);
+          setEvents(eData?.data ?? []);
           setLoading(false);
         }
       } catch {
@@ -54,321 +45,474 @@ export default function DiscoverPage() {
     return () => { cancelled = true; };
   }, []);
 
-  const categories = [
-    { label: "Destinations", href: "#destinations", icon: "📍", count: destinations.length },
-    { label: "Traditional Food", href: "#food", icon: "🍜", count: food.length },
-    { label: "Local Experiences", href: "#experiences", icon: "✨", count: experiences.length },
-    { label: "Festivals & Events", href: "#events", icon: "🎉", count: events.length },
-    { label: "Nature & Wildlife", href: "/nature", icon: "🌿", count: null },
-    { label: "Heritage & History", href: "/heritage", icon: "🏛", count: null },
-    { label: "Dance & Performing Arts", href: "/heritage", icon: "💃", count: null },
-    { label: "Travel & Stay", href: "/travel-stay", icon: "🧳", count: null },
-  ];
+  function toggleCategory(index: number) {
+    setOpenCategory(prev => prev === index ? null : index);
+  }
+
+  function toggleItem(index: number) {
+    setOpenItems(prev => {
+      const next = new Set(prev);
+      if (next.has(index)) next.delete(index);
+      else next.add(index);
+      return next;
+    });
+  }
 
   return (
-    <div className="nature-page">
-      <Nav />
-      <section
-        className="nature-hero"
-        style={{
-          backgroundImage:
-            'linear-gradient(to top, rgba(10,35,25,0.82), rgba(10,35,25,0.12)), url("/images/hero.jpeg")',
-        }}
-      >
-        <div className="nature-hero-content">
-          <span>EXPLORE</span>
-          <h1>Discover Manipur</h1>
-          <p>
-            Explore the culture, wildlife, traditions and symbols of Manipur.
-          </p>
-        </div>
-      </section>
-
-      <main className="nature-content">
-        <div style={{ marginBottom: 50 }}>
-          <span
-            style={{
-              fontSize: 10,
-              letterSpacing: 2,
-              color: "#5d8c72",
-              fontWeight: 600,
-            }}
-          >
-            DISCOVER
-          </span>
-          <h2
-            style={{
-              marginTop: 10,
-              fontFamily: '"Playfair Display", var(--font-heading), serif',
-              fontSize: 42,
-              fontWeight: 500,
-              lineHeight: 1.1,
-              color: "#173f2b",
-            }}
-          >
-            What makes Manipur special.
-          </h2>
-          <p
-            style={{
-              color: "#66756c",
-              lineHeight: 1.75,
-              fontSize: 14,
-              marginTop: 18,
-              maxWidth: 700,
-            }}
-          >
-            From floating lakes to ancient traditions, explore everything that
-            makes this corner of India unforgettable.
-          </p>
-        </div>
-
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-            gap: 16,
-            marginBottom: 70,
-          }}
-        >
-          {categories.map((cat) => (
-            <Link
-              key={cat.label}
-              href={cat.href}
-              style={{
-                background: "#fff",
-                borderRadius: 18,
-                padding: "22px 20px",
-                border: "1px solid rgba(23,63,43,.07)",
-                textDecoration: "none",
-                transition: "transform .2s ease, box-shadow .2s ease",
-                display: "flex",
-                flexDirection: "column",
-                gap: 8,
-              }}
-            >
-              <span style={{ fontSize: 28 }}>{cat.icon}</span>
-              <span
-                style={{
-                  fontFamily: '"Playfair Display", serif',
-                  fontSize: 17,
-                  fontWeight: 500,
-                  color: "#173f2b",
-                }}
-              >
-                {cat.label}
-              </span>
-              {cat.count !== null && !loading && (
-                <span style={{ fontSize: 11, color: "#5d8c72" }}>
-                  {cat.count} item{cat.count !== 1 ? "s" : ""}
-                </span>
-              )}
-            </Link>
-          ))}
-        </div>
-
-        <div style={{ textAlign: "center", marginBottom: 70 }}>
-          <Link
-            href="/plan-trip"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-              background: "#28704e",
-              color: "#fff",
-              padding: "14px 32px",
-              borderRadius: 999,
-              fontSize: 15,
-              fontWeight: 600,
-              textDecoration: "none",
-              transition: "background .2s ease",
-            }}
-          >
-            Plan My Trip →
+    <>
+      
+      <div>
+        <header className="navbar">
+          <div className="logo">
+            <span className="logo-mark">
+              <Image src="/images/logo.jpeg" alt="Explore Manipur" width={34} height={34} />
+            </span>
+            <span>Explore Manipur</span>
+          </div>
+          <nav className="nav-links">
+            <Link href="/#experiences">Experiences</Link>
+            <Link href="/#destinations">Destinations</Link>
+            <Link href="/map">Map</Link>
+          </nav>
+          <Link href="/" className="nav-button">
+            <i className="fa-solid fa-arrow-left"></i>
+            Back Home
           </Link>
-        </div>
+        </header>
 
-        {loading ? (
-          <div style={{ textAlign: "center", padding: "40px 0" }}>
-            <p style={{ color: "#66756c", fontSize: 14 }}>Loading...</p>
-          </div>
-        ) : (
-          <>
-            {destinations.length > 0 && (
-              <section id="destinations" style={{ marginBottom: 70 }}>
-                <span style={{ fontSize: 10, letterSpacing: 2, color: "#5d8c72", fontWeight: 600 }}>EXPLORE</span>
-                <h2 style={{ marginTop: 10, fontFamily: '"Playfair Display", var(--font-heading), serif', fontSize: 32, fontWeight: 500, color: "#173f2b", marginBottom: 24 }}>Destinations</h2>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 20 }}>
-                  {destinations.slice(0, 6).map((d) => (
-                    <Link key={d.id} href={`/map?destination=${encodeURIComponent(d.name)}`} style={{ background: "#fff", borderRadius: 18, overflow: "hidden", border: "1px solid rgba(23,63,43,.07)", textDecoration: "none" }}>
-                      <div style={{ height: 160, background: "#e8eee9", position: "relative" }}>
-                        {d.imageUrl ? (
-                          <Image src={d.imageUrl} alt={d.name} fill style={{ objectFit: "cover" }} />
-                        ) : (
-                          <div style={{ width: "100%", height: "100%", display: "grid", placeItems: "center", color: "#5d8c72", fontSize: 28 }}>⊕</div>
-                        )}
-                        {d.category && (
-                          <span style={{ position: "absolute", top: 10, left: 10, background: "rgba(23,63,43,.75)", color: "#fff", fontSize: 9, letterSpacing: 1, textTransform: "uppercase", padding: "4px 10px", borderRadius: 999, fontWeight: 600 }}>{d.category}</span>
-                        )}
-                      </div>
-                      <div style={{ padding: "14px 16px" }}>
-                        <h3 style={{ margin: 0, fontFamily: '"Playfair Display", serif', fontSize: 17, fontWeight: 500, color: "#173f2b" }}>{d.name}</h3>
-                        {d.district && <p style={{ margin: "4px 0 0", fontSize: 12, color: "#66756c" }}>{d.district}</p>}
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </section>
-            )}
-
-            {food.length > 0 && (
-              <section id="food" style={{ marginBottom: 70 }}>
-                <span style={{ fontSize: 10, letterSpacing: 2, color: "#5d8c72", fontWeight: 600 }}>TASTE</span>
-                <h2 style={{ marginTop: 10, fontFamily: '"Playfair Display", var(--font-heading), serif', fontSize: 32, fontWeight: 500, color: "#173f2b", marginBottom: 24 }}>Traditional Food</h2>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 20 }}>
-                  {food.slice(0, 6).map((f) => (
-                    <div key={f.id} style={{ background: "#fff", borderRadius: 18, overflow: "hidden", border: "1px solid rgba(23,63,43,.07)" }}>
-                      <div style={{ height: 160, background: "#e8eee9", position: "relative" }}>
-                        {f.imageUrl ? (
-                          <Image src={f.imageUrl} alt={f.name} fill style={{ objectFit: "cover" }} />
-                        ) : (
-                          <div style={{ width: "100%", height: "100%", display: "grid", placeItems: "center", color: "#5d8c72", fontSize: 28 }}>🍜</div>
-                        )}
-                      </div>
-                      <div style={{ padding: "14px 16px" }}>
-                        <h3 style={{ margin: 0, fontFamily: '"Playfair Display", serif', fontSize: 17, fontWeight: 500, color: "#173f2b" }}>{f.name}</h3>
-                        {f.description && <p style={{ margin: "6px 0 0", fontSize: 12, color: "#66756c", lineHeight: 1.6 }}>{f.description}</p>}
-                        {f.cuisine && <span style={{ display: "inline-block", marginTop: 6, fontSize: 10, letterSpacing: 1, textTransform: "uppercase", color: "#5d8c72", fontWeight: 600 }}>{f.cuisine}</span>}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            )}
-
-            {experiences.length > 0 && (
-              <section id="experiences" style={{ marginBottom: 70 }}>
-                <span style={{ fontSize: 10, letterSpacing: 2, color: "#5d8c72", fontWeight: 600 }}>EXPERIENCE</span>
-                <h2 style={{ marginTop: 10, fontFamily: '"Playfair Display", var(--font-heading), serif', fontSize: 32, fontWeight: 500, color: "#173f2b", marginBottom: 24 }}>Local Experiences</h2>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 20 }}>
-                  {experiences.slice(0, 6).map((e) => (
-                    <div key={e.id} style={{ background: "#fff", borderRadius: 18, overflow: "hidden", border: "1px solid rgba(23,63,43,.07)" }}>
-                      <div style={{ height: 160, background: "#e8eee9", position: "relative" }}>
-                        {e.imageUrl ? (
-                          <Image src={e.imageUrl} alt={e.name} fill style={{ objectFit: "cover" }} />
-                        ) : (
-                          <div style={{ width: "100%", height: "100%", display: "grid", placeItems: "center", color: "#5d8c72", fontSize: 28 }}>✨</div>
-                        )}
-                        {e.category && (
-                          <span style={{ position: "absolute", top: 10, left: 10, background: "rgba(23,63,43,.75)", color: "#fff", fontSize: 9, letterSpacing: 1, textTransform: "uppercase", padding: "4px 10px", borderRadius: 999, fontWeight: 600 }}>{e.category}</span>
-                        )}
-                      </div>
-                      <div style={{ padding: "14px 16px" }}>
-                        <h3 style={{ margin: 0, fontFamily: '"Playfair Display", serif', fontSize: 17, fontWeight: 500, color: "#173f2b" }}>{e.name}</h3>
-                        {e.description && <p style={{ margin: "6px 0 0", fontSize: 12, color: "#66756c", lineHeight: 1.6 }}>{e.description}</p>}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            )}
-
-            {events.length > 0 && (
-              <section id="events" style={{ marginBottom: 70 }}>
-                <span style={{ fontSize: 10, letterSpacing: 2, color: "#5d8c72", fontWeight: 600 }}>CELEBRATE</span>
-                <h2 style={{ marginTop: 10, fontFamily: '"Playfair Display", var(--font-heading), serif', fontSize: 32, fontWeight: 500, color: "#173f2b", marginBottom: 24 }}>Festivals & Events</h2>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 20 }}>
-                  {events.slice(0, 6).map((ev) => (
-                    <div key={ev.id} style={{ background: "#fff", borderRadius: 18, padding: "18px 20px", border: "1px solid rgba(23,63,43,.07)" }}>
-                      <h3 style={{ margin: 0, fontFamily: '"Playfair Display", serif', fontSize: 17, fontWeight: 500, color: "#173f2b" }}>{ev.name}</h3>
-                      {ev.category && <span style={{ display: "inline-block", marginTop: 6, fontSize: 10, letterSpacing: 1, textTransform: "uppercase", color: "#5d8c72", fontWeight: 600 }}>{ev.category}</span>}
-                      {ev.description && <p style={{ margin: "8px 0 0", fontSize: 12, color: "#66756c", lineHeight: 1.6 }}>{ev.description}</p>}
-                      {ev.startDate && <p style={{ margin: "6px 0 0", fontSize: 11, color: "#28704e", fontWeight: 500 }}>{ev.startDate}{ev.endDate ? ` – ${ev.endDate}` : ""}</p>}
-                    </div>
-                  ))}
-                </div>
-              </section>
-            )}
-          </>
-        )}
-
-        <section style={{ marginBottom: 70 }}>
-          <span style={{ fontSize: 10, letterSpacing: 2, color: "#5d8c72", fontWeight: 600 }}>CULTURE</span>
-          <h2 style={{ marginTop: 10, fontFamily: '"Playfair Display", var(--font-heading), serif', fontSize: 32, fontWeight: 500, color: "#173f2b", marginBottom: 24 }}>Dance & Performing Arts</h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
-            <div style={{ background: "#fff", borderRadius: 18, padding: "24px 22px", border: "1px solid rgba(23,63,43,.07)" }}>
-              <h3 style={{ margin: 0, fontFamily: '"Playfair Display", serif', fontSize: 19, fontWeight: 500, color: "#173f2b" }}>Ras Lila</h3>
-              <p style={{ margin: "10px 0 0", fontSize: 13, color: "#66756c", lineHeight: 1.7 }}>A classical Manipuri dance form depicting the divine love of Radha and Krishna, performed with graceful movements and devotional music.</p>
-            </div>
-            <div style={{ background: "#fff", borderRadius: 18, padding: "24px 22px", border: "1px solid rgba(23,63,43,.07)" }}>
-              <h3 style={{ margin: 0, fontFamily: '"Playfair Display", serif', fontSize: 19, fontWeight: 500, color: "#173f2b" }}>Thang-Ta</h3>
-              <p style={{ margin: "10px 0 0", fontSize: 13, color: "#66756c", lineHeight: 1.7 }}>An ancient martial art combining sword (thang) and spear (ta) techniques, performed as both combat training and cultural expression.</p>
-            </div>
-            <div style={{ background: "#fff", borderRadius: 18, padding: "24px 22px", border: "1px solid rgba(23,63,43,.07)" }}>
-              <h3 style={{ margin: 0, fontFamily: '"Playfair Display", serif', fontSize: 19, fontWeight: 500, color: "#173f2b" }}>Lai Haraoba</h3>
-              <p style={{ margin: "10px 0 0", fontSize: 13, color: "#66756c", lineHeight: 1.7 }}>A traditional festival featuring ritualistic dances and music dedicated to local deities, celebrating creation myths and community life.</p>
-            </div>
+        <section className="discover-hub-hero">
+          <div className="discover-hub-content">
+            <span>DISCOVER MANIPUR</span>
+            <h1>Stories, traditions<br />and living culture.</h1>
+            <p>Explore the traditions, craftsmanship and indigenous practices that make Manipur unique.</p>
           </div>
         </section>
 
-        <section style={{ marginBottom: 70 }}>
-          <span style={{ fontSize: 10, letterSpacing: 2, color: "#5d8c72", fontWeight: 600 }}>EXPERIENCES</span>
-          <h2 style={{ marginTop: 10, fontFamily: '"Playfair Display", var(--font-heading), serif', fontSize: 32, fontWeight: 500, color: "#173f2b", marginBottom: 24 }}>Explore by theme</h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 16 }}>
-            <Link href="/nature" style={{ position: "relative", height: 200, borderRadius: 18, overflow: "hidden", textDecoration: "none", display: "block" }}>
-              <Image src="/images/loktak-alt.jpg" alt="Nature" fill style={{ objectFit: "cover" }} />
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(10,35,25,.7), transparent)", display: "flex", alignItems: "flex-end", padding: 18 }}>
-                <span style={{ color: "#fff", fontFamily: '"Playfair Display", serif', fontSize: 20, fontWeight: 500 }}>Nature & Wildlife</span>
-              </div>
-            </Link>
-            <Link href="/heritage" style={{ position: "relative", height: 200, borderRadius: 18, overflow: "hidden", textDecoration: "none", display: "block" }}>
-              <Image src="/images/kangla.png" alt="Heritage" fill style={{ objectFit: "cover" }} />
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(10,35,25,.7), transparent)", display: "flex", alignItems: "flex-end", padding: 18 }}>
-                <span style={{ color: "#fff", fontFamily: '"Playfair Display", serif', fontSize: 20, fontWeight: 500 }}>Heritage & History</span>
-              </div>
-            </Link>
-            <Link href="/adventure" style={{ position: "relative", height: 200, borderRadius: 18, overflow: "hidden", textDecoration: "none", display: "block" }}>
-              <Image src="/images/shirui.jpg" alt="Adventure" fill style={{ objectFit: "cover" }} />
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(10,35,25,.7), transparent)", display: "flex", alignItems: "flex-end", padding: 18 }}>
-                <span style={{ color: "#fff", fontFamily: '"Playfair Display", serif', fontSize: 20, fontWeight: 500 }}>Adventure</span>
-              </div>
-            </Link>
-            <Link href="/historical" style={{ position: "relative", height: 200, borderRadius: 18, overflow: "hidden", textDecoration: "none", display: "block" }}>
-              <Image src="/images/red-hill.png" alt="Historical" fill style={{ objectFit: "cover" }} />
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(10,35,25,.7), transparent)", display: "flex", alignItems: "flex-end", padding: 18 }}>
-                <span style={{ color: "#fff", fontFamily: '"Playfair Display", serif', fontSize: 20, fontWeight: 500 }}>Historical Places</span>
-              </div>
-            </Link>
+        <main className="discover-dropdown-page">
+          <div className="discover-hub-heading">
+            <span>EXPLORE</span>
+            <h2>Discover what makes<br />Manipur unique.</h2>
           </div>
-        </section>
-      </main>
 
-      <footer className="site-footer">
-        <div className="footer-top">
-          <div className="footer-brand">
-            <div className="logo">
-              <span className="logo-mark">M</span>
-              Explore Manipur
+          <section className={`discover-category${openCategory === 0 ? " open" : ""}`}>
+            <button className="category-toggle" onClick={() => toggleCategory(0)}>
+              <div>
+                <span></span>
+                <h3>Art &amp; Culture</h3>
+                <p>Classical dance, traditional music, rituals and cultural expressions.</p>
+              </div>
+              <i className="fa-solid fa-plus"></i>
+            </button>
+            <div className="category-content">
+              <article className="culture-item">
+                <div className="culture-image"><Image src="/images/raas-leela.jpeg" alt="Raas Leela" fill /></div>
+                <div className="culture-content">
+                  <span className="item-number"></span>
+                  <h4>Raas Leela</h4>
+                  <p className="item-preview">Raas Leela is one of the most celebrated classical dance traditions of Manipur, known for its graceful movements and devotional expression.</p>
+                  <div className={`item-more${openItems.has(100) ? " show" : ""}`}>
+                    <p>Raas Leela is a classical dance form deeply associated with the cultural traditions of Manipur.</p>
+                    <p>Its performances portray the divine love between Radha and Krishna through graceful movements, music, expressions and storytelling.</p>
+                    <p>The dance remains an important part of Manipuri cultural identity and is recognised for its distinctive style and graceful movement.</p>
+                  </div>
+                  <button className={`item-read-more${openItems.has(100) ? " open" : ""}`} onClick={() => toggleItem(100)}>
+                    {openItems.has(100) ? "Read Less" : "Read More"} <i className={`fa-solid fa-arrow-${openItems.has(100) ? "up" : "down"}`}></i>
+                  </button>
+                  <span className="image-credit">Image credit: Dinesh Sharma</span>
+                </div>
+              </article>
+              <article className="culture-item">
+                <div className="culture-image"><Image src="/images/nupa-pala.jpeg" alt="Nupa Pala" fill /></div>
+                <div className="culture-content">
+                  <span className="item-number"></span>
+                  <h4>Nupa Pala</h4>
+                  <p className="item-preview">Nupa Pala is a traditional Manipuri performance combining music, rhythm, singing and graceful movement.</p>
+                  <div className={`item-more${openItems.has(101) ? " show" : ""}`}>
+                    <p>Nupa Pala is an important traditional performance of Manipur that combines singing, rhythm and movement.</p>
+                    <p>Performers present the tradition through coordinated musical and physical expression, making it an important part of Manipuri performing arts.</p>
+                  </div>
+                  <button className={`item-read-more${openItems.has(101) ? " open" : ""}`} onClick={() => toggleItem(101)}>
+                    {openItems.has(101) ? "Read Less" : "Read More"} <i className={`fa-solid fa-arrow-${openItems.has(101) ? "up" : "down"}`}></i>
+                  </button>
+                  <span className="image-credit">Image credit: Dinesh Sharma</span>
+                </div>
+              </article>
+              <article className="culture-item">
+                <div className="culture-image"><Image src="/images/pung-cholom.jpeg" alt="Pung Cholom" fill /></div>
+                <div className="culture-content">
+                  <span className="item-number"></span>
+                  <h4>Pung Cholom</h4>
+                  <p className="item-preview">Pung Cholom is a dynamic Manipuri performance centred around the traditional drum known as the pung.</p>
+                  <div className={`item-more${openItems.has(102) ? " show" : ""}`}>
+                    <p>Pung Cholom combines percussion and energetic movement into a distinctive Manipuri performance.</p>
+                    <p>Performers play the traditional pung while simultaneously performing rhythmic movements and coordinated sequences.</p>
+                    <p>The combination of music, rhythm and movement makes Pung Cholom one of the recognisable performance traditions of Manipur.</p>
+                  </div>
+                  <button className={`item-read-more${openItems.has(102) ? " open" : ""}`} onClick={() => toggleItem(102)}>
+                    {openItems.has(102) ? "Read Less" : "Read More"} <i className={`fa-solid fa-arrow-${openItems.has(102) ? "up" : "down"}`}></i>
+                  </button>
+                  <span className="image-credit">Image credit: Dinesh Sharma</span>
+                </div>
+              </article>
+              <article className="culture-item">
+                <div className="culture-image"><Image src="/images/maibi-dance.jpeg" alt="Maibi Dance" fill /></div>
+                <div className="culture-content">
+                  <span className="item-number"></span>
+                  <h4>Maibi Dance</h4>
+                  <p className="item-preview">Maibi Dance is an important traditional ritual dance associated with the cultural and spiritual traditions of the Meitei people.</p>
+                  <div className={`item-more${openItems.has(103) ? " show" : ""}`}>
+                    <p>Maibi Dance forms part of traditional ceremonies and rituals and preserves important elements of the cultural heritage of Manipur.</p>
+                    <p>The dance is performed by Maibis and uses traditional movements and symbolism connected with the cultural and spiritual traditions of the Meitei community.</p>
+                  </div>
+                  <button className={`item-read-more${openItems.has(103) ? " open" : ""}`} onClick={() => toggleItem(103)}>
+                    {openItems.has(103) ? "Read Less" : "Read More"} <i className={`fa-solid fa-arrow-${openItems.has(103) ? "up" : "down"}`}></i>
+                  </button>
+                  <span className="image-credit">Image credit: Maaibi Dance of the Meiteis at Manipur Sangai Festival</span>
+                </div>
+              </article>
+              <article className="culture-item">
+                <div className="culture-image"><Image src="/images/khamba-thoibi.jpeg" alt="Khamba Thoibi Dance" fill /></div>
+                <div className="culture-content">
+                  <span className="item-number"></span>
+                  <h4>Khamba Thoibi Dance</h4>
+                  <p className="item-preview">Khamba Thoibi is a traditional dance associated with the legendary story of Khamba and Thoibi.</p>
+                  <div className={`item-more${openItems.has(104) ? " show" : ""}`}>
+                    <p>The performance forms an important part of Manipuri cultural tradition and presents elements of storytelling, graceful movement and traditional expression.</p>
+                    <p>The dance is connected with the traditional story of Khamba and Thoibi and continues to be represented through cultural performances.</p>
+                  </div>
+                  <button className={`item-read-more${openItems.has(104) ? " open" : ""}`} onClick={() => toggleItem(104)}>
+                    {openItems.has(104) ? "Read Less" : "Read More"} <i className={`fa-solid fa-arrow-${openItems.has(104) ? "up" : "down"}`}></i>
+                  </button>
+                  <span className="image-credit">Image credit: courtesy Pintu Oinam</span>
+                </div>
+              </article>
             </div>
-            <p>Discover. Experience. Remember.</p>
-          </div>
-          <div className="footer-links">
-            <div>
-              <h4>Explore</h4>
-              <Link href="/#destinations">Destinations</Link>
-              <Link href="/#experiences">Experiences</Link>
-              <Link href="/#map">Map</Link>
+          </section>
+
+          <section className={`discover-category${openCategory === 1 ? " open" : ""}`}>
+            <button className="category-toggle" onClick={() => toggleCategory(1)}>
+              <div>
+                <span></span>
+                <h3>Handloom</h3>
+                <p>Discover the weaving traditions, fabrics and craftsmanship of Manipur.</p>
+              </div>
+              <i className="fa-solid fa-plus"></i>
+            </button>
+            <div className="category-content">
+              <article className="culture-item">
+                <div className="culture-image"><Image src="/images/handloom.jpeg" alt="Manipuri Handloom" fill /></div>
+                <div className="culture-content">
+                  <span className="item-number"></span>
+                  <h4>Manipuri Handloom</h4>
+                  <p className="item-preview">Manipur enjoys a distinct place amongst the Handloom zones in India. Handloom industry is the largest cottage industry in the State.</p>
+                  <div className={`item-more${openItems.has(105) ? " show" : ""}`}>
+                    <p>This industry has been flourishing since time immemorial. One of the special features of the industry is that women are the only weavers.</p>
+                    <p>According to the National Handloom Census Reports 1988 there are about 2.71 lakh looms in Manipur.</p>
+                    <p>It is believed that Chitnu Tamitnu, a goddess, discovered the cotton and she also produced the yarn.</p>
+                    <p>When the threads are ready for weaving she arranged the required equipments and constructed the Sinnaishang (work shed).</p>
+                    <p>It is also believed that the goddess Panthoibee once saw a spider producing fine threads and making cobwebs and from it she found the idea of weaving and thus started weaving.</p>
+                    <p>Most of the weavers who are famous for their skill and intricate designing are from Wangkhei, Bamon Kampu, Kongba, Khongman, Utlou etc. in respect of fine silk items.</p>
+                    <p>The rest of the villages of the State produce all varieties of fabrics. Tribal shawls with exotic designs and motifs are products of the hill districts of the State.</p>
+                    <p>Fabrics and Shawls of Manipur are in great demand in the national and international market.</p>
+                    <p>Today, major handloom production activities are undertaken by three Government organizations namely:</p>
+                    <ul>
+                      <li>Manipur Development Society (MDS)</li>
+                      <li>Manipur Handloom and Handicrafts Development Corporation (MHHDC)</li>
+                      <li>Manipur State Handloom Weavers Co-operative Society (MSHWCS)</li>
+                    </ul>
+                  </div>
+                  <button className={`item-read-more${openItems.has(105) ? " open" : ""}`} onClick={() => toggleItem(105)}>
+                    {openItems.has(105) ? "Read Less" : "Read More"} <i className={`fa-solid fa-arrow-${openItems.has(105) ? "up" : "down"}`}></i>
+                  </button>
+                </div>
+              </article>
             </div>
-            <div>
-              <h4>Plan</h4>
-              <Link href="/plan-trip">Plan a Trip</Link>
-              <Link href="/travel-stay">Travel & Stay</Link>
+          </section>
+
+          <section className={`discover-category${openCategory === 2 ? " open" : ""}`}>
+            <button className="category-toggle" onClick={() => toggleCategory(2)}>
+              <div>
+                <span></span>
+                <h3>Indigenous Games</h3>
+                <p>Traditional sports, martial arts and games passed down through generations.</p>
+              </div>
+              <i className="fa-solid fa-plus"></i>
+            </button>
+            <div className="category-content">
+              <article className="culture-item">
+                <div className="culture-image"><Image src="/images/sagol-kangjei.jpeg" alt="Sagol Kangjei" fill /></div>
+                <div className="culture-content">
+                  <span className="item-number"></span>
+                  <h4>Sagol Kangjei</h4>
+                  <p className="item-preview">Sagol Kangjei is the traditional form of polo played in Manipur.</p>
+                  <div className={`item-more${openItems.has(200) ? " show" : ""}`}>
+                    <p>Sagol Kangjei is the traditional form of polo and is associated with the origins of modern polo.</p>
+                    <p>Two teams of seven players compete using Manipuri ponies, which are generally around 4-5 feet in height.</p>
+                    <p>Players use traditional sticks made from bamboo roots. The game is played in both the Pana and international styles.</p>
+                    <p>The game represents an important part of the sporting heritage of Manipur, with Manipuri ponies often decorated for the occasion.</p>
+                  </div>
+                  <button className={`item-read-more${openItems.has(200) ? " open" : ""}`} onClick={() => toggleItem(200)}>
+                    {openItems.has(200) ? "Read Less" : "Read More"} <i className={`fa-solid fa-arrow-${openItems.has(200) ? "up" : "down"}`}></i>
+                  </button>
+                </div>
+              </article>
+              <article className="culture-item">
+                <div className="culture-image"><Image src="/images/yubi-lakpi.jpeg" alt="Yubi Lakpi" fill /></div>
+                <div className="culture-content">
+                  <span className="item-number"></span>
+                  <h4>Yubi Lakpi</h4>
+                  <p className="item-preview">Yubi Lakpi, meaning coconut snatching, is a distinctive traditional game of Manipur.</p>
+                  <div className={`item-more${openItems.has(201) ? " show" : ""}`}>
+                    <p>The game is played on a grass field with seven players on each side. A coconut is used as the ball and players attempt to carry it towards the goal.</p>
+                    <p>The game has traditionally been associated with palace and temple grounds and remains a distinctive part of Manipuri sporting tradition.</p>
+                  </div>
+                  <button className={`item-read-more${openItems.has(201) ? " open" : ""}`} onClick={() => toggleItem(201)}>
+                    {openItems.has(201) ? "Read Less" : "Read More"} <i className={`fa-solid fa-arrow-${openItems.has(201) ? "up" : "down"}`}></i>
+                  </button>
+                </div>
+              </article>
+              <article className="culture-item">
+                <div className="culture-image"><Image src="/images/hiyang-tannaba.jpeg" alt="Hiyang Tannaba" fill /></div>
+                <div className="culture-content">
+                  <span className="item-number"></span>
+                  <h4>Hiyang Tannaba</h4>
+                  <p className="item-preview">Hiyang Tannaba is a traditional boat race generally held in November at Thangapat, the historic moat.</p>
+                  <div className={`item-more${openItems.has(202) ? " show" : ""}`}>
+                    <p>The boats, known as Hiyang Hiren, have spiritual significance and the event is associated with religious rites.</p>
+                    <p>Participants traditionally appear in ceremonial dress and headgear, combining sporting activity with cultural and religious traditions.</p>
+                  </div>
+                  <button className={`item-read-more${openItems.has(202) ? " open" : ""}`} onClick={() => toggleItem(202)}>
+                    {openItems.has(202) ? "Read Less" : "Read More"} <i className={`fa-solid fa-arrow-${openItems.has(202) ? "up" : "down"}`}></i>
+                  </button>
+                </div>
+              </article>
+              <article className="culture-item">
+                <div className="culture-image"><Image src="/images/mukna.png" alt="Mukna" fill /></div>
+                <div className="culture-content">
+                  <span className="item-number"></span>
+                  <h4>Mukna</h4>
+                  <p className="item-preview">Mukna is the traditional wrestling practice of Manipur.</p>
+                  <div className={`item-more${openItems.has(203) ? " show" : ""}`}>
+                    <p>Competitors test their strength and skill against each other. Wrestlers are matched according to physical build, weight and age.</p>
+                    <p>Mukna has long enjoyed popularity and prestige in Manipuri society and has also been associated with royal patronage.</p>
+                  </div>
+                  <button className={`item-read-more${openItems.has(203) ? " open" : ""}`} onClick={() => toggleItem(203)}>
+                    {openItems.has(203) ? "Read Less" : "Read More"} <i className={`fa-solid fa-arrow-${openItems.has(203) ? "up" : "down"}`}></i>
+                  </button>
+                </div>
+              </article>
+              <article className="culture-item">
+                <div className="culture-image"><Image src="/images/kang.jpeg" alt="Kang" fill /></div>
+                <div className="culture-content">
+                  <span className="item-number"></span>
+                  <h4>Kang</h4>
+                  <p className="item-preview">Kang is a traditional Manipuri game played on a mud floor using a flat oblong object.</p>
+                  <div className={`item-more${openItems.has(204) ? " show" : ""}`}>
+                    <p>The Kang object was traditionally made from materials such as ivory or lac. Players strike targets during the game.</p>
+                    <p>The game can be played in teams of seven and in mixed doubles.</p>
+                    <p>The traditional playing period extends from Cheiraoba to Rath Yatra.</p>
+                  </div>
+                  <button className={`item-read-more${openItems.has(204) ? " open" : ""}`} onClick={() => toggleItem(204)}>
+                    {openItems.has(204) ? "Read Less" : "Read More"} <i className={`fa-solid fa-arrow-${openItems.has(204) ? "up" : "down"}`}></i>
+                  </button>
+                </div>
+              </article>
+              <article className="culture-item">
+                <div className="culture-image"><Image src="/images/thang-ta.jpeg" alt="Thang-Ta" fill /></div>
+                <div className="culture-content">
+                  <span className="item-number"></span>
+                  <h4>Thang-Ta &amp; Sarit Sarat</h4>
+                  <p className="item-preview">Thang-Ta and Sarit Sarat are traditional martial arts passed through generations.</p>
+                  <div className={`item-more${openItems.has(205) ? " show" : ""}`}>
+                    <p>These traditional martial arts were historically associated with combat skills and physical preparedness during periods of peace.</p>
+                    <p>Training emphasises discipline, physical skill and technique.</p>
+                    <p>The traditions continue under established customs, rituals and rules passed through generations.</p>
+                  </div>
+                  <button className={`item-read-more${openItems.has(205) ? " open" : ""}`} onClick={() => toggleItem(205)}>
+                    {openItems.has(205) ? "Read Less" : "Read More"} <i className={`fa-solid fa-arrow-${openItems.has(205) ? "up" : "down"}`}></i>
+                  </button>
+                </div>
+              </article>
+              <article className="culture-item">
+                <div className="culture-image"><Image src="/images/other.jpeg" alt="Other Indigenous Games" fill /></div>
+                <div className="culture-content">
+                  <span className="item-number"></span>
+                  <h4>Other Indigenous Games</h4>
+                  <p className="item-preview">Manipur has many other traditional games and physical activities that form part of its indigenous sporting heritage.</p>
+                  <div className={`item-more${openItems.has(206) ? " show" : ""}`}>
+                    <p>Lamjel is a traditional foot race associated with physical endurance and competition.</p>
+                    <p>Mangjong is a traditional broad-jump activity that demonstrates physical strength, agility and skill.</p>
+                  </div>
+                  <button className={`item-read-more${openItems.has(206) ? " open" : ""}`} onClick={() => toggleItem(206)}>
+                    {openItems.has(206) ? "Read Less" : "Read More"} <i className={`fa-solid fa-arrow-${openItems.has(206) ? "up" : "down"}`}></i>
+                  </button>
+                </div>
+              </article>
             </div>
-          </div>
-        </div>
-        <div className="footer-bottom">
-          <span>© 2026 Explore Manipur</span>
-        </div>
-      </footer>
-    </div>
+          </section>
+
+          <section className={`discover-category${openCategory === 3 ? " open" : ""}`}>
+            <button className="category-toggle" onClick={() => toggleCategory(3)}>
+              <div>
+                <span>EXPERIENCE - FOOD</span>
+                <h3>Food</h3>
+                <p>Discover traditional dishes shaped by seasonal ingredients, local traditions and everyday Manipuri life.</p>
+              </div>
+              <i className="fa-solid fa-plus"></i>
+            </button>
+            <div className="category-content">
+              {loading && <p style={{ padding: "20px 38px", color: "#66756c", fontSize: 14 }}>Loading food...</p>}
+              {!loading && food.length > 0 && food.map((f) => (
+                <article key={f.id} className="culture-item">
+                  <div className="culture-image">
+                    {f.imageUrl || getDestinationImage(f.name) ? <Image src={f.imageUrl || getDestinationImage(f.name)!} alt={f.name} fill /> : <div style={{ width: "100%", height: "100%", display: "grid", placeItems: "center", background: "#dce9df" }}></div>}
+                  </div>
+                  <div className="culture-content">
+                    <span className="item-number"></span>
+                    <h4>{f.name}</h4>
+                    <p className="item-preview">{f.description ?? ""}</p>
+                  </div>
+                </article>
+              ))}
+              {!loading && food.length === 0 && (
+                <>
+                  <article className="culture-item">
+                    <div className="culture-image"><Image src="/images/singju.jpeg" alt="Singju" fill /></div>
+                    <div className="culture-content">
+                      <span className="item-number"></span>
+                      <h4>Singju</h4>
+                      <p className="item-preview">A burst of freshness with a fiery Manipuri character, Singju is a traditional salad made with seasonal vegetables, herbs and local ingredients.</p>
+                      <div className={`item-more${openItems.has(300) ? " show" : ""}`}>
+                        <p>A burst of freshness with a fiery Manipuri character. Singju is a traditional Manipuri salad made with finely sliced seasonal vegetables, herbs and local ingredients such as lotus stem and cabbage.</p>
+                        <p>Its distinctive flavour comes from roasted perilla seeds and chickpea flour, or traditionally from ngari (fermented fish). Crunchy, fresh and often spicy, Singju is enjoyed as a snack or accompaniment and reflects Manipur&apos;s love for seasonal produce and bold local flavours.</p>
+                      </div>
+                      <button className={`item-read-more${openItems.has(300) ? " open" : ""}`} onClick={() => toggleItem(300)}>
+                        {openItems.has(300) ? "Read Less" : "Read More"} <i className={`fa-solid fa-arrow-${openItems.has(300) ? "up" : "down"}`}></i>
+                      </button>
+                      <span className="image-credit">Traditional Manipuri cuisine</span>
+                    </div>
+                  </article>
+                  <article className="culture-item">
+                    <div className="culture-image"><Image src="/images/chamthong.jpeg" alt="Chamthong" fill /></div>
+                    <div className="culture-content">
+                      <span className="item-number"></span>
+                      <h4>Chamthong / Kangsoi</h4>
+                      <p className="item-preview">A simple and comforting vegetable stew rooted in everyday Manipuri cooking, prepared with seasonal greens and locally available ingredients.</p>
+                      <div className={`item-more${openItems.has(301) ? " show" : ""}`}>
+                        <p>Simple, comforting and deeply rooted in everyday Manipuri cooking. Chamthong, also known as Kangsoi, is a light vegetable stew prepared with seasonal greens and vegetables, onions, herbs, ginger and other local ingredients.</p>
+                        <p>It may be finished with dried or fermented fish, giving the broth its characteristic depth. Served hot with rice, this humble dish offers a gentler introduction to Manipuri cuisine while showcasing the importance of fresh, locally available ingredients.</p>
+                      </div>
+                      <button className={`item-read-more${openItems.has(301) ? " open" : ""}`} onClick={() => toggleItem(301)}>
+                        {openItems.has(301) ? "Read Less" : "Read More"} <i className={`fa-solid fa-arrow-${openItems.has(301) ? "up" : "down"}`}></i>
+                      </button>
+                      <span className="image-credit">Traditional Manipuri cuisine</span>
+                    </div>
+                  </article>
+                  <article className="culture-item">
+                    <div className="culture-image"><Image src="/images/cha-khao-kheer.png" alt="Chak Hao Kheer" fill /></div>
+                    <div className="culture-content">
+                      <span className="item-number"></span>
+                      <h4>Chak Hao Kheer</h4>
+                      <p className="item-preview">A distinctive traditional rice pudding made from Manipur&apos;s aromatic black rice, known locally as Chak-Hao.</p>
+                      <div className={`item-more${openItems.has(302) ? " show" : ""}`}>
+                        <p>A dessert with a colour as distinctive as its heritage. Chak Hao Kheer is a traditional rice pudding made from Manipur&apos;s aromatic black rice, known locally as Chak-Hao.</p>
+                        <p>The naturally dark grains transform into a deep purple shade when cooked, creating a striking dessert with a fragrant, slightly nutty character.</p>
+                        <p>Chak-Hao has been cultivated in Manipur for generations and received a Geographical Indication (GI) tag in 2020, making this more than just a dessert - it is a taste of Manipur&apos;s agricultural heritage.</p>
+                      </div>
+                      <button className={`item-read-more${openItems.has(302) ? " open" : ""}`} onClick={() => toggleItem(302)}>
+                        {openItems.has(302) ? "Read Less" : "Read More"} <i className={`fa-solid fa-arrow-${openItems.has(302) ? "up" : "down"}`}></i>
+                      </button>
+                      <span className="image-credit">Traditional Manipuri cuisine</span>
+                    </div>
+                  </article>
+                </>
+              )}
+            </div>
+          </section>
+
+          <section className={`discover-category${openCategory === 4 ? " open" : ""}`}>
+            <button className="category-toggle" onClick={() => toggleCategory(4)}>
+              <div>
+                <span>EXPERIENCE - FESTIVALS</span>
+                <h3>Festivals</h3>
+                <p>Experience the celebrations, traditions and cultural festivals that bring Manipur to life.</p>
+              </div>
+              <i className="fa-solid fa-plus"></i>
+            </button>
+            <div className="category-content">
+              {loading && <p style={{ padding: "20px 38px", color: "#66756c", fontSize: 14 }}>Loading events...</p>}
+              {!loading && events.length > 0 && events.map((ev) => (
+                <article key={ev.id} className="culture-item">
+                  <div className="culture-image">
+                    {ev.imageUrl || getDestinationImage(ev.name) ? <Image src={ev.imageUrl || getDestinationImage(ev.name)!} alt={ev.name} fill /> : <div style={{ width: "100%", height: "100%", display: "grid", placeItems: "center", background: "#dce9df" }}></div>}
+                  </div>
+                  <div className="culture-content">
+                    <span className="item-number"></span>
+                    <h4>{ev.name}</h4>
+                    <p className="item-preview">{ev.description ?? ""}</p>
+                  </div>
+                </article>
+              ))}
+              {!loading && events.length === 0 && (
+                <>
+                  <article className="culture-item">
+                    <div className="culture-image"><Image src="/images/sangai-festival.jpeg" alt="Sangai Festival" fill /></div>
+                    <div className="culture-content">
+                      <span className="item-number"></span>
+                      <h4>Sangai Festival</h4>
+                      <p className="item-preview">A celebration that brings together Manipur&apos;s culture, traditions, crafts, food and performances.</p>
+                      <div className={`item-more${openItems.has(400) ? " show" : ""}`}>
+                        <p>The Sangai Festival showcases the cultural richness of Manipur through traditional performances, crafts, food and other experiences.</p>
+                        <p>It provides an opportunity to experience different aspects of the state&apos;s cultural traditions in one celebration.</p>
+                      </div>
+                      <button className={`item-read-more${openItems.has(400) ? " open" : ""}`} onClick={() => toggleItem(400)}>
+                        {openItems.has(400) ? "Read Less" : "Read More"} <i className={`fa-solid fa-arrow-${openItems.has(400) ? "up" : "down"}`}></i>
+                      </button>
+                      <span className="image-credit">Sangai Festival</span>
+                    </div>
+                  </article>
+                  <article className="culture-item">
+                    <div className="culture-image"><Image src="/images/shirui-lily-festival.jpeg" alt="Shirui Lily Festival" fill /></div>
+                    <div className="culture-content">
+                      <span className="item-number"></span>
+                      <h4>Shirui Lily Festival</h4>
+                      <p className="item-preview">A celebration centred around the Shirui Lily and the natural and cultural heritage of Ukhrul.</p>
+                      <div className={`item-more${openItems.has(401) ? " show" : ""}`}>
+                        <p>The Shirui Lily Festival celebrates the natural and cultural identity of Ukhrul, bringing attention to the region and its distinctive landscape.</p>
+                        <p>The festival connects nature, local culture, performances and community experiences.</p>
+                      </div>
+                      <button className={`item-read-more${openItems.has(401) ? " open" : ""}`} onClick={() => toggleItem(401)}>
+                        {openItems.has(401) ? "Read Less" : "Read More"} <i className={`fa-solid fa-arrow-${openItems.has(401) ? "up" : "down"}`}></i>
+                      </button>
+                      <span className="image-credit">Shirui Lily Festival</span>
+                    </div>
+                  </article>
+                  <article className="culture-item">
+                    <div className="culture-image"><Image src="/images/lai-haraoba.jpeg" alt="Lai Haraoba" fill /></div>
+                    <div className="culture-content">
+                      <span className="item-number"></span>
+                      <h4>Lai Haraoba</h4>
+                      <p className="item-preview">An important traditional celebration featuring rituals, music, dance and performances connected with Meitei cultural traditions.</p>
+                      <div className={`item-more${openItems.has(402) ? " show" : ""}`}>
+                        <p>Lai Haraoba is a traditional celebration associated with the worship of local deities and the preservation of cultural traditions.</p>
+                        <p>Rituals, music, dance and performances form an important part of the celebration, connecting cultural practices with community life.</p>
+                      </div>
+                      <button className={`item-read-more${openItems.has(402) ? " open" : ""}`} onClick={() => toggleItem(402)}>
+                        {openItems.has(402) ? "Read Less" : "Read More"} <i className={`fa-solid fa-arrow-${openItems.has(402) ? "up" : "down"}`}></i>
+                      </button>
+                      <span className="image-credit">Lai Haraoba</span>
+                    </div>
+                  </article>
+                </>
+              )}
+            </div>
+          </section>
+        </main>
+
+        <footer className="discover-footer">
+          <p>&copy; 2026 Explore Manipur</p>
+        </footer>
+      </div>
+    </>
   );
 }
