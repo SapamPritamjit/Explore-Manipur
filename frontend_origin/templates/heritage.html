@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Heritage of Manipur | Smart Manipur Tourism</title>
+
+    <link rel="stylesheet" href="../static/style.css">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap"
+          rel="stylesheet">
+
+    <style>
+
+        .nature-page {
+            background: #f7faf7;
+        }
+
+        /* HERO */
+
+        .nature-hero {
+            height: 520px;
+            position: relative;
+            background-image: url("../static/images/heritage.jpg");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .nature-hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to top,
+                rgba(10, 35, 25, .82),
+                rgba(10, 35, 25, .10)
+            );
+        }
+
+        .nature-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1250px;
+            width: 100%;
+            margin: auto;
+            padding: 80px 6%;
+            color: white;
+        }
+
+        .nature-hero-content span {
+            font-size: 11px;
+            letter-spacing: 3px;
+            opacity: .85;
+        }
+
+        .nature-hero-content h1 {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(48px, 7vw, 82px);
+            font-weight: 500;
+            line-height: 1;
+            margin: 12px 0 18px;
+        }
+
+        .nature-hero-content p {
+            max-width: 600px;
+            font-size: 15px;
+            line-height: 1.7;
+            opacity: .9;
+        }
+
+        /* CONTENT */
+
+        .nature-content {
+            max-width: 1250px;
+            margin: auto;
+            padding: 100px 6%;
+        }
+
+        .nature-heading {
+            margin-bottom: 70px;
+        }
+
+        .nature-heading span {
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: #56806a;
+        }
+
+        .nature-heading h2 {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(38px, 5vw, 58px);
+            font-weight: 500;
+            color: #173f2b;
+            margin-top: 10px;
+        }
+
+        /* DESTINATION */
+
+        .nature-place {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 70px;
+            align-items: center;
+            margin-bottom: 110px;
+        }
+
+        .nature-place.reverse {
+            direction: rtl;
+        }
+
+        .nature-place.reverse > * {
+            direction: ltr;
+        }
+
+        .nature-image {
+            height: 500px;
+            border-radius: 24px;
+            overflow: hidden;
+        }
+
+        .nature-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .5s ease;
+        }
+
+        .nature-place:hover .nature-image img {
+            transform: scale(1.04);
+        }
+
+        .nature-number {
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: #71917d;
+        }
+
+        .nature-info h3 {
+            font-family: "Playfair Display", serif;
+            font-size: 40px;
+            font-weight: 500;
+            line-height: 1.1;
+            color: #173f2b;
+            margin: 12px 0 18px;
+        }
+
+        .nature-description {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #66756c;
+            max-width: 520px;
+        }
+
+        /* LOCATION */
+
+        .nature-location {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            margin: 22px 0;
+            font-size: 13px;
+            color: #52645a;
+        }
+
+        .nature-location i {
+            color: #28724c;
+        }
+
+        .map-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: #17633f;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 28px;
+            transition: .25s ease;
+        }
+
+        .map-link:hover {
+            gap: 12px;
+            color: #0d4a2c;
+        }
+
+        /* WHY VISIT */
+
+        .nature-info h4 {
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: #71917d;
+            margin-bottom: 13px;
+        }
+
+        .nature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 28px;
+        }
+
+        .nature-list li {
+            font-size: 13px;
+            color: #4f6057;
+            margin-bottom: 9px;
+            padding-left: 18px;
+            position: relative;
+        }
+
+        .nature-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #28724c;
+            font-size: 17px;
+        }
+
+        /* TRAVEL TIPS */
+
+        .travel-tips {
+            background: #edf7ef;
+            border-radius: 14px;
+            padding: 18px 20px;
+            max-width: 520px;
+        }
+
+        .travel-tips h4 {
+            margin-bottom: 10px;
+            color: #173f2b;
+        }
+
+        .travel-tips ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .travel-tips li {
+            font-size: 12px;
+            color: #607067;
+            margin-bottom: 7px;
+        }
+
+        .travel-tips li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* BACK HOME */
+
+        .back-home {
+            text-align: center;
+            margin-top: -30px;
+            margin-bottom: 80px;
+        }
+
+        .back-home a {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            text-decoration: none;
+            color: #173f2b;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 800px) {
+
+            .nature-hero {
+                height: 470px;
+            }
+
+            .nature-hero-content {
+                padding: 60px 6%;
+            }
+
+            .nature-content {
+                padding: 70px 6%;
+            }
+
+            .nature-place,
+            .nature-place.reverse {
+                grid-template-columns: 1fr;
+                gap: 35px;
+                direction: ltr;
+                margin-bottom: 80px;
+            }
+
+            .nature-image {
+                height: 350px;
+            }
+
+            .nature-info h3 {
+                font-size: 34px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body class="nature-page">
+
+    <!-- NAVBAR -->
+
+<header class="navbar">
+
+    <div class="logo">
+
+    <span class="logo-mark">
+        <img src="../static/images/logo.jpeg" alt="Smart Manipur">
+    </span>
+
+        <span>
+            SMART MANIPUR
+        </span>
+
+    </div>
+
+
+    <nav>
+
+        <a href="index.html#experiences">
+            Experiences
+        </a>
+
+        <a href="index.html#destinations">
+            Destinations
+        </a>
+
+        <a href="index.html#map">
+            Map
+        </a>
+
+    </nav>
+
+
+    <a href="index.html"
+       class="nav-button">
+
+        <i class="fa-solid fa-arrow-left"></i>
+
+        Back Home
+
+    </a>
+
+</header>
+
+
+    <!-- HERO -->
+
+    <section class="nature-hero">
+
+        <div class="nature-hero-content">
+
+            <span>EXPERIENCE • HERITAGE</span>
+
+            <h1>Heritage</h1>
+
+            <p>
+                Discover the traditions, architecture and cultural spaces
+                that preserve the rich heritage of Manipur.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- CONTENT -->
+
+    <main class="nature-content">
+
+        <div class="nature-heading">
+
+            <span>HERITAGE OF MANIPUR</span>
+
+            <h2>
+                Stories preserved through generations.
+            </h2>
+
+        </div>
+
+
+        <!-- IMA KEITHEL -->
+
+        <article class="nature-place">
+
+            <div class="nature-image">
+                <img src="../static/images/ima-keithel.jpg"
+                     alt="Ima Keithel, Imphal">
+            </div>
+
+            <div class="nature-info">
+
+                <span class="nature-number">01 / HERITAGE</span>
+
+                <h3>Ima Keithel</h3>
+
+                <p class="nature-description">
+                    A symbol of feminine power, Ima Keithel is a
+                    more-than-500-year-old all-women's market run by
+                    over 3,000 Emas (mothers). It is a popular shopping
+                    destination offering a variety of local and
+                    traditional goods.
+                </p>
+
+                <div class="nature-location">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Imphal, Manipur</span>
+                </div>
+
+                <a href="map.html#ima-keithel" class="map-link">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    View on Map
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <h4>WHY VISIT?</h4>
+
+                <ul class="nature-list">
+                    <li>Experience a unique women-run marketplace</li>
+                    <li>Shop for local and traditional products</li>
+                    <li>Experience everyday Manipuri culture</li>
+                    <li>Explore one of Manipur's most distinctive markets</li>
+                </ul>
+
+                <div class="travel-tips">
+
+                    <h4>TRAVEL TIPS</h4>
+
+                    <ul>
+                        <li>Best time: Morning–afternoon</li>
+                        <li>Carry cash for smaller purchases</li>
+                        <li>Ask before photographing vendors</li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- GOVINDAJEE TEMPLE -->
+
+        <article class="nature-place reverse">
+
+            <div class="nature-image">
+                <img src="../static/images/govindajee.jpg"
+                     alt="Shree Shree Govindajee Temple, Imphal">
+            </div>
+
+            <div class="nature-info">
+
+                <span class="nature-number">02 / HERITAGE</span>
+
+                <h3>
+                    Shree Shree<br>
+                    Govindajee Temple
+                </h3>
+
+                <p class="nature-description">
+                    A historic centre of the Vaishnavites in Manipur,
+                    featuring twin domes covered with gold-plated sheets,
+                    a paved courtyard and a large congregation hall.
+                    The presiding deity, Radha-Krishna, is carved from
+                    a jackfruit tree.
+                </p>
+
+                <div class="nature-location">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Imphal, Manipur</span>
+                </div>
+
+                <a href="map.html#govindajee" class="map-link">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    View on Map
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <h4>WHY VISIT?</h4>
+
+                <ul class="nature-list">
+                    <li>Admire its distinctive twin-dome architecture</li>
+                    <li>Experience Manipur's Vaishnavite traditions</li>
+                    <li>Witness daily devotional activities</li>
+                    <li>Experience the temple's traditional vegetarian prasad</li>
+                </ul>
+
+                <div class="travel-tips">
+
+                    <h4>TRAVEL TIPS</h4>
+
+                    <ul>
+                        <li>Best time: Morning or evening</li>
+                        <li>Dress modestly</li>
+                        <li>Follow temple customs and maintain a respectful atmosphere</li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- ANDRO -->
+
+        <article class="nature-place">
+
+            <div class="nature-image">
+                <img src="../static/images/andro.jpeg"
+                     alt="Andro village, Manipur">
+            </div>
+
+            <div class="nature-info">
+
+                <span class="nature-number">03 / HERITAGE</span>
+
+                <h3>Andro</h3>
+
+                <p class="nature-description">
+                    Andro is a historic village near Imphal known for
+                    its rich cultural heritage, traditional pottery and
+                    preserved indigenous practices. The village is home
+                    to the Andro Gramsang Museum, which showcases
+                    traditional pottery, artefacts and cultural objects
+                    representing different Manipuri tribes.
+                </p>
+
+                <div class="nature-location">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Andro, Imphal East, Manipur</span>
+                </div>
+
+                <a href="map.html#andro" class="map-link">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    View on Map
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <h4>WHY VISIT?</h4>
+
+                <ul class="nature-list">
+                    <li>Explore traditional Manipuri pottery</li>
+                    <li>Visit the Andro Gramsang Museum</li>
+                    <li>Discover indigenous crafts and traditions</li>
+                    <li>Experience the village's cultural heritage</li>
+                </ul>
+
+                <div class="travel-tips">
+
+                    <h4>TRAVEL TIPS</h4>
+
+                    <ul>
+                        <li>Best time: October–February</li>
+                        <li>Explore the village and museum together</li>
+                        <li>Respect local traditions and cultural spaces</li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- BACK -->
+
+        <div class="back-home">
+
+            <a href="index.html">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back to Explore Manipur
+            </a>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="footer-bottom">
+            <span>© 2026 Explore Manipur</span>
+        </div>
+
+    </footer>
+
+
+</body>
+</html>

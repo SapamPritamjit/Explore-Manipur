@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Historical Places | Smart Manipur Tourism</title>
+
+    <link rel="stylesheet" href="../static/style.css">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap"
+          rel="stylesheet">
+
+    <style>
+
+        .nature-page {
+            background: #f7faf7;
+        }
+
+        /* HERO */
+
+        .nature-hero {
+            height: 520px;
+            position: relative;
+            background-image: url("../static/images/historical-banner.jpeg");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .nature-hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to top,
+                rgba(10, 35, 25, .84),
+                rgba(10, 35, 25, .10)
+            );
+        }
+
+        .nature-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1250px;
+            width: 100%;
+            margin: auto;
+            padding: 80px 6%;
+            color: white;
+        }
+
+        .nature-hero-content span {
+            font-size: 11px;
+            letter-spacing: 3px;
+            opacity: .85;
+        }
+
+        .nature-hero-content h1 {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(48px, 7vw, 82px);
+            font-weight: 500;
+            line-height: 1;
+            margin: 12px 0 18px;
+        }
+
+        .nature-hero-content p {
+            max-width: 600px;
+            font-size: 15px;
+            line-height: 1.7;
+            opacity: .9;
+        }
+
+        /* CONTENT */
+
+        .nature-content {
+            max-width: 1250px;
+            margin: auto;
+            padding: 100px 6%;
+        }
+
+        .nature-heading {
+            margin-bottom: 70px;
+        }
+
+        .nature-heading span {
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: #56806a;
+        }
+
+        .nature-heading h2 {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(38px, 5vw, 58px);
+            font-weight: 500;
+            color: #173f2b;
+            margin-top: 10px;
+        }
+
+        /* DESTINATION */
+
+        .nature-place {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 70px;
+            align-items: center;
+            margin-bottom: 110px;
+        }
+
+        .nature-place.reverse {
+            direction: rtl;
+        }
+
+        .nature-place.reverse > * {
+            direction: ltr;
+        }
+
+        .nature-image {
+            height: 500px;
+            border-radius: 24px;
+            overflow: hidden;
+        }
+
+        .nature-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .5s ease;
+        }
+
+        .nature-place:hover .nature-image img {
+            transform: scale(1.04);
+        }
+
+        .nature-number {
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: #71917d;
+        }
+
+        .nature-info h3 {
+            font-family: "Playfair Display", serif;
+            font-size: 40px;
+            font-weight: 500;
+            line-height: 1.1;
+            color: #173f2b;
+            margin: 12px 0 18px;
+        }
+
+        .nature-description {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #66756c;
+            max-width: 520px;
+        }
+
+        /* LOCATION */
+
+        .nature-location {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            margin: 22px 0;
+            font-size: 13px;
+            color: #52645a;
+        }
+
+        .nature-location i {
+            color: #28724c;
+        }
+
+        .map-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: #17633f;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 28px;
+            transition: .25s ease;
+        }
+
+        .map-link:hover {
+            gap: 12px;
+            color: #0d4a2c;
+        }
+
+        /* TRAVEL TIPS */
+
+        .nature-info h4 {
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: #71917d;
+            margin-bottom: 13px;
+        }
+
+        .travel-tips {
+            background: #edf7ef;
+            border-radius: 14px;
+            padding: 18px 20px;
+            max-width: 520px;
+        }
+
+        .travel-tips h4 {
+            margin-bottom: 10px;
+            color: #173f2b;
+        }
+
+        .travel-tips ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .travel-tips li {
+            font-size: 12px;
+            color: #607067;
+            margin-bottom: 7px;
+        }
+
+        .travel-tips li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* BACK HOME */
+
+        .back-home {
+            text-align: center;
+            margin-top: -30px;
+            margin-bottom: 80px;
+        }
+
+        .back-home a {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            text-decoration: none;
+            color: #173f2b;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 800px) {
+
+            .nature-hero {
+                height: 470px;
+            }
+
+            .nature-hero-content {
+                padding: 60px 6%;
+            }
+
+            .nature-content {
+                padding: 70px 6%;
+            }
+
+            .nature-place,
+            .nature-place.reverse {
+                grid-template-columns: 1fr;
+                gap: 35px;
+                direction: ltr;
+                margin-bottom: 80px;
+            }
+
+            .nature-image {
+                height: 350px;
+            }
+
+            .nature-info h3 {
+                font-size: 34px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body class="nature-page">
+
+<header class="navbar">
+
+    <div class="logo">
+
+    <span class="logo-mark">
+        <img src="../static/images/logo.jpeg" alt="Smart Manipur">
+    </span>
+
+        <span>
+            SMART MANIPUR
+        </span>
+
+    </div>
+
+
+    <nav>
+
+        <a href="index.html#experiences">
+            Experiences
+        </a>
+
+        <a href="index.html#destinations">
+            Destinations
+        </a>
+
+        <a href="index.html#map">
+            Map
+        </a>
+
+    </nav>
+
+
+    <a href="index.html"
+       class="nav-button">
+
+        <i class="fa-solid fa-arrow-left"></i>
+
+        Back Home
+
+    </a>
+
+</header>
+
+
+    <!-- HERO -->
+
+    <section class="nature-hero">
+
+        <div class="nature-hero-content">
+
+            <span>EXPERIENCE • HISTORY</span>
+
+            <h1>Historical Places</h1>
+
+            <p>
+                Walk through the places, memorials and landmarks
+                that tell the story of Manipur's past.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- CONTENT -->
+
+    <main class="nature-content">
+
+        <div class="nature-heading">
+
+            <span>HISTORY OF MANIPUR</span>
+
+            <h2>
+                Places where history lives.
+            </h2>
+
+        </div>
+
+
+        <!-- RED HILL -->
+
+        <article class="nature-place">
+
+            <div class="nature-image">
+                <img src="../static/images/red-hill.png"
+                     alt="Red Hill Maibam Lokpa Ching and India Peace Memorial">
+            </div>
+
+            <div class="nature-info">
+
+                <span class="nature-number"></span>
+
+                <h3>
+                    Red Hill &<br>
+                    India Peace Memorial
+                </h3>
+
+                <p class="nature-description">
+                    A significant World War II site where Japanese
+                    soldiers and the Indian National Army fought
+                    against the British. The India Peace Memorial
+                    honours the Japanese soldiers who lost their
+                    lives during the battle.
+                </p>
+
+                <div class="nature-location">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Maibam Lokpa Ching, Bishnupur District, Manipur</span>
+                </div>
+
+                <a href="map.html#red-hill" class="map-link">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    View on Map
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <h4>TRAVEL TIPS</h4>
+
+                <div class="travel-tips">
+
+                    <ul>
+                        <li>Best time: Morning or late afternoon</li>
+                        <li>Maintain a respectful atmosphere at the memorial</li>
+                        <li>Wear comfortable footwear</li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- KHONGJOM -->
+
+        <article class="nature-place reverse">
+
+            <div class="nature-image">
+                <img src="../static/images/khongjom.png"
+                     alt="Khongjom War Memorial">
+            </div>
+
+            <div class="nature-info">
+
+                <span class="nature-number"></span>
+
+                <h3>Khongjom War Memorial</h3>
+
+                <p class="nature-description">
+                    A historic memorial commemorating Major General
+                    Paona Brajabashi and the soldiers who fought
+                    against the British during the Anglo-Manipur
+                    War of 1891.
+                </p>
+
+                <div class="nature-location">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Khongjom, Thoubal District, Manipur</span>
+                </div>
+
+                <a href="map.html#khongjom" class="map-link">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    View on Map
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <h4>TRAVEL TIPS</h4>
+
+                <div class="travel-tips">
+
+                    <ul>
+                        <li>Best time: Morning or late afternoon</li>
+                        <li>Khongjom Day: 23 April</li>
+                        <li>Wear comfortable footwear while exploring the memorial grounds</li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- INA MEMORIAL -->
+
+        <article class="nature-place">
+
+            <div class="nature-image">
+                <img src="../static/images/ina-memorial.png"
+                     alt="INA Memorial, Moirang">
+            </div>
+
+            <div class="nature-info">
+
+                <span class="nature-number"></span>
+
+                <h3>INA Memorial</h3>
+
+                <p class="nature-description">
+                    A historic memorial in Moirang honouring the
+                    sacrifices of Indian soldiers under the leadership
+                    of Netaji Subhas Chandra Bose. Its museum preserves
+                    photographs, letters, badges and other wartime
+                    memorabilia.
+                </p>
+
+                <div class="nature-location">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Moirang, Bishnupur District, Manipur</span>
+                </div>
+
+                <a href="map.html#ina" class="map-link">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    View on Map
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <h4>TRAVEL TIPS</h4>
+
+                <div class="travel-tips">
+
+                    <ul>
+                        <li>Best time: Morning–afternoon</li>
+                        <li>Allow time to explore the museum</li>
+                        <li>Maintain a respectful atmosphere around the memorial</li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- KANGLA -->
+
+        <article class="nature-place reverse" id="kangla">
+
+            <div class="nature-image">
+                <img src="../static/images/kangla.png"
+                     alt="Kangla Fort, Imphal">
+            </div>
+
+            <div class="nature-info">
+
+                <span class="nature-number"></span>
+
+                <h3>Kangla</h3>
+
+                <p class="nature-description">
+                    A symbol of Manipur's glory and one of its most
+                    important historical and archaeological sites.
+                    Kangla served as the royal palace since the time
+                    of Pakhangba and remains a sacred site with
+                    numerous holy shrines. Located at the heart of
+                    Imphal, it is a major destination for exploring
+                    Manipur's history and heritage.
+                </p>
+
+                <div class="nature-location">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Imphal West District, at the centre of Imphal City</span>
+                </div>
+
+                <a href="map.html#kangla" class="map-link">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    View on Map
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <h4>TRAVEL TIPS</h4>
+
+                <div class="travel-tips">
+
+                    <ul>
+                        <li>Best time: Morning or late afternoon</li>
+                        <li>Wear comfortable footwear for exploring the grounds</li>
+                        <li>Dress respectfully around sacred sites</li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- BACK -->
+
+        <div class="back-home">
+
+            <a href="index.html">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back to Explore Manipur
+            </a>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="footer-bottom">
+            <span>© 2026 Explore Manipur</span>
+        </div>
+
+    </footer>
+
+
+</body>
+</html>

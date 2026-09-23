@@ -1,0 +1,1554 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "DM Sans", sans-serif;
+    color: #18352b;
+    background: #fffdf8;
+    line-height: 1.6;
+}
+
+img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    font-family: inherit;
+    border: none;
+    cursor: pointer;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 82px;
+
+    padding: 0 6%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    z-index: 10;
+
+    color: white;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    font-size: 14px;
+}
+
+.logo-mark {
+    width: 34px;
+    height: 34px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+    color: #28704e;
+
+    font-family: "Playfair Display", serif;
+    font-size: 18px;
+}
+
+nav {
+    display: flex;
+    gap: 35px;
+
+    font-size: 14px;
+}
+
+nav a {
+    opacity: 0.9;
+    transition: 0.25s;
+}
+
+nav a:hover {
+    opacity: 1;
+}
+
+.nav-button {
+    background: white;
+    color: #28694b;
+
+    padding: 11px 18px;
+
+    border-radius: 30px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    transition: 0.25s;
+}
+
+.nav-button:hover {
+    transform: translateY(-2px);
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    height: 720px;
+
+    position: relative;
+
+    background-image: url("../static/images/hero.jpeg");
+
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(13, 47, 34, 0.68),
+            rgba(13, 47, 34, 0.12)
+        );
+}
+
+.hero-content {
+    position: relative;
+
+    z-index: 2;
+
+    height: 100%;
+
+    max-width: 1250px;
+
+    margin: auto;
+
+    padding: 180px 6% 0;
+
+    color: white;
+}
+
+.eyebrow {
+    font-size: 11px;
+
+    letter-spacing: 2.5px;
+
+    font-weight: 600;
+
+    opacity: 0.9;
+}
+
+.hero h1 {
+    margin-top: 22px;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(52px, 7vw, 92px);
+
+    font-weight: 500;
+
+    line-height: 0.98;
+
+    letter-spacing: -3px;
+}
+
+.hero h1 span {
+    font-style: italic;
+}
+
+.hero-content > p {
+    max-width: 510px;
+
+    margin-top: 28px;
+
+    font-size: 17px;
+
+    opacity: 0.92;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 50%,
+        rgba(247, 250, 247, 0.95) 100%
+    );
+}
+
+/* SEARCH */
+
+.search-box {
+    margin-top: 35px;
+
+    width: min(620px, 100%);
+
+    background: white;
+
+    padding: 7px;
+
+    border-radius: 50px;
+
+    display: flex;
+    align-items: center;
+
+    color: #18352b;
+
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+.search-box i {
+    margin-left: 20px;
+
+    color: #5c806e;
+}
+
+.search-box input {
+    flex: 1;
+
+    border: none;
+    outline: none;
+
+    padding: 15px;
+
+    font-size: 14px;
+
+    background: transparent;
+}
+
+.search-box button {
+    background: #28704e;
+
+    color: white;
+
+    padding: 13px 25px;
+
+    border-radius: 30px;
+
+    font-weight: 600;
+}
+
+
+/* =========================
+   GENERAL SECTIONS
+========================= */
+
+.section {
+    max-width: 1250px;
+
+    margin: auto;
+
+    padding: 110px 6%;
+}
+
+.section-heading {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: end;
+
+    margin-bottom: 45px;
+}
+
+.small-label {
+    font-size: 11px;
+
+    letter-spacing: 2px;
+
+    font-weight: 700;
+
+    color: #4e8b6c;
+}
+
+.section h2 {
+    margin-top: 10px;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(36px, 4vw, 52px);
+
+    font-weight: 500;
+
+    line-height: 1.1;
+}
+
+.view-all {
+    color: #28704e;
+
+    font-size: 14px;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+/* =========================
+   DESTINATIONS
+========================= */
+
+.destination-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.destination-card {
+    cursor: pointer;
+}
+
+.card-image {
+    height: 380px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #e8eee9;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.5s ease;
+}
+
+.destination-card:hover .card-image img {
+    transform: scale(1.04);
+}
+
+.category {
+    position: absolute;
+
+    top: 18px;
+    left: 18px;
+
+    background: rgba(255,255,255,0.9);
+
+    padding: 7px 11px;
+
+    border-radius: 20px;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    color: #28694b;
+}
+
+.heart {
+    position: absolute;
+
+    top: 16px;
+    right: 16px;
+
+    width: 38px;
+    height: 38px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.9);
+
+    color: #28694b;
+}
+
+.card-info {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 17px 4px;
+}
+
+.card-info h3 {
+    font-family: "Playfair Display", serif;
+
+    font-size: 24px;
+
+    font-weight: 500;
+}
+
+.card-info p {
+    color: #789084;
+
+    font-size: 12px;
+
+    margin-top: 2px;
+}
+
+.card-info p i {
+    margin-right: 4px;
+}
+
+.card-arrow {
+    color: #4e8b6c;
+
+    transition: 0.25s;
+}
+
+.destination-card:hover .card-arrow {
+    transform: translate(3px, -3px);
+}
+
+
+/* =========================
+   EXPERIENCES
+========================= */
+
+.experience-section {
+    background: #edf7ef;
+    padding: 100px 6%;
+}
+
+.experience-heading {
+    max-width: 1250px;
+    margin: 0 auto 45px;
+}
+
+.experience-heading h2 {
+    max-width: 750px;
+}
+
+
+/* 2 × 2 GRID */
+
+.experience-grid {
+    max-width: 1250px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 24px;
+}
+
+
+/* CARDS */
+
+.experience-card {
+    position: relative;
+
+    height: 430px;
+
+    overflow: hidden;
+    border-radius: 22px;
+
+    background-size: cover;
+    background-position: center;
+
+    color: white;
+    display: flex;
+    align-items: flex-end;
+
+    text-decoration: none;
+
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+
+/* DARK OVERLAY */
+
+.experience-overlay {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(10, 35, 25, .88),
+            rgba(10, 35, 25, .05) 72%
+        );
+
+    transition: .35s ease;
+}
+
+
+/* CONTENT */
+
+.experience-content {
+    position: relative;
+    z-index: 2;
+
+    padding: 32px;
+
+    width: 100%;
+}
+
+.experience-content > span {
+    font-size: 11px;
+    letter-spacing: 2px;
+    opacity: .8;
+}
+
+.experience-content h3 {
+    margin-top: 7px;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 38px;
+    font-weight: 500;
+
+    line-height: 1.1;
+}
+
+.experience-content p {
+    max-width: 330px;
+
+    margin-top: 10px;
+
+    font-size: 13px;
+    line-height: 1.55;
+
+    opacity: .9;
+}
+
+
+/* ARROW */
+
+.experience-arrow {
+    margin-top: 20px;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    opacity: 0;
+
+    transform: translateY(8px);
+
+    transition: .3s ease;
+}
+
+.experience-arrow i {
+    margin-left: 7px;
+}
+
+
+/* HOVER */
+
+.experience-card:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 20px 40px rgba(20, 60, 40, .18);
+}
+
+.experience-card:hover .experience-overlay {
+    background:
+        linear-gradient(
+            to top,
+            rgba(10, 35, 25, .92),
+            rgba(10, 35, 25, .15) 75%
+        );
+}
+
+.experience-card:hover .experience-arrow {
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+
+/* IMAGES */
+
+.experience-card.nature {
+    background-image:
+        url("../static/images/loktak-alt.jpg");
+}
+
+.experience-card.heritage {
+    background-image:
+        url("../static/images/ima-keithel.jpg");
+}
+
+.experience-card.adventure {
+    background-image:
+        url("../static/images/shirui-alt.jpeg");
+}
+
+.experience-card.historical {
+    background-image:
+        url("../static/images/red-hill.png");
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    .experience-section {
+        padding: 80px 6%;
+    }
+
+    .experience-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .experience-card {
+        height: 380px;
+    }
+
+    .experience-content h3 {
+        font-size: 34px;
+    }
+
+}
+
+
+/* =========================
+   MAP
+========================= */
+
+.map-section {
+    max-width: 1250px;
+
+    margin: auto;
+
+    padding: 120px 6%;
+
+    display: grid;
+
+    grid-template-columns: 0.8fr 1.2fr;
+
+    align-items: center;
+
+    gap: 80px;
+}
+
+.map-content h2 {
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(42px, 5vw, 64px);
+
+    font-weight: 500;
+
+    line-height: 1.05;
+
+    margin-top: 12px;
+}
+
+.map-content p {
+    color: #63766d;
+
+    max-width: 400px;
+
+    margin: 22px 0 28px;
+}
+
+.primary-button {
+    background: #28704e;
+
+    color: white;
+
+    padding: 14px 22px;
+
+    border-radius: 30px;
+
+    font-weight: 600;
+}
+
+.map-preview {
+    height: 470px;
+
+    border-radius: 25px;
+
+    background:
+        radial-gradient(circle at 30% 40%, #b8d8b7 0 2px, transparent 3px),
+        #e8f1e8;
+
+    overflow: hidden;
+
+    position: relative;
+}
+
+.map-shape {
+    position: absolute;
+
+    width: 330px;
+    height: 390px;
+
+    background: #d0e4ce;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%) rotate(12deg);
+
+    border-radius: 45% 55% 48% 52% / 50% 45% 55% 50%;
+
+    box-shadow: inset 0 0 0 2px rgba(40,112,78,0.08);
+}
+
+.map-dot {
+    position: absolute;
+
+    width: 12px;
+    height: 12px;
+
+    background: #28704e;
+
+    border: 3px solid white;
+
+    border-radius: 50%;
+
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.map-dot span {
+    position: absolute;
+
+    left: 18px;
+    top: -7px;
+
+    white-space: nowrap;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    color: #28543f;
+}
+
+.dot-one {
+    left: 42%;
+    top: 55%;
+}
+
+.dot-two {
+    left: 48%;
+    top: 40%;
+}
+
+.dot-three {
+    left: 63%;
+    top: 22%;
+}
+
+.dot-four {
+    left: 35%;
+    top: 65%;
+}
+
+
+/* =========================
+   FEATURES
+========================= */
+
+.features-section {
+    background: #fff8ec;
+
+    padding: 110px 6%;
+}
+
+.center-heading {
+    text-align: center;
+
+    margin-bottom: 65px;
+}
+
+.center-heading h2 {
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(38px, 5vw, 60px);
+
+    font-weight: 500;
+
+    line-height: 1.1;
+
+    margin-top: 12px;
+}
+
+.features-grid {
+    max-width: 1100px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 30px;
+}
+
+.feature {
+    text-align: center;
+}
+
+.feature-icon {
+    width: 58px;
+    height: 58px;
+
+    margin: auto;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    background: #e3f0e5;
+
+    color: #28704e;
+
+    font-size: 20px;
+}
+
+.feature h3 {
+    margin-top: 20px;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 23px;
+
+    font-weight: 500;
+}
+
+.feature p {
+    margin-top: 8px;
+
+    font-size: 13px;
+
+    color: #6c7d74;
+}
+
+
+/* =========================
+   CTA
+========================= */
+
+.cta {
+    margin: 100px 6%;
+
+    max-width: 1250px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    border-radius: 28px;
+
+    padding: 90px 8%;
+
+    background: #28694b;
+
+    color: white;
+}
+
+.cta span {
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    font-weight: 700;
+}
+
+.cta h2 {
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(42px, 5vw, 64px);
+
+    font-weight: 500;
+
+    line-height: 1.05;
+
+    margin-top: 15px;
+}
+
+.cta p {
+    margin-top: 18px;
+
+    opacity: 0.8;
+
+    max-width: 450px;
+}
+
+.cta-button {
+    margin-top: 28px;
+
+    background: white;
+
+    color: #28694b;
+
+    padding: 14px 23px;
+
+    border-radius: 30px;
+
+    font-weight: 600;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    padding: 60px 6% 25px;
+
+    border-top: 1px solid #edf0ec;
+
+    max-width: 1250px;
+
+    margin: auto;
+}
+
+.footer-top {
+    display: flex;
+
+    justify-content: space-between;
+}
+
+.footer-brand p {
+    margin-top: 12px;
+
+    color: #7a8a83;
+
+    font-size: 13px;
+}
+
+.footer-links {
+    display: flex;
+
+    gap: 80px;
+}
+
+.footer-links div {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.footer-links h4 {
+    margin-bottom: 8px;
+
+    font-size: 12px;
+
+    color: #18352b;
+}
+
+.footer-links a {
+    font-size: 12px;
+
+    color: #75847c;
+}
+
+.footer-bottom {
+    margin-top: 60px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #edf0ec;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    color: #9aa59f;
+
+    font-size: 11px;
+}
+
+.tagline {
+    color: #28704e;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+    nav {
+        display: none;
+    }
+
+    .destination-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .large-card {
+        grid-column: span 2;
+    }
+
+    .experience-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .map-section {
+        grid-template-columns: 1fr;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .navbar {
+        padding: 0 5%;
+    }
+
+    .nav-button {
+        display: none;
+    }
+
+    .hero {
+        height: 650px;
+    }
+
+    .hero-content {
+        padding-top: 160px;
+    }
+
+    .hero h1 {
+        letter-spacing: -2px;
+    }
+
+    .search-box {
+        border-radius: 18px;
+    }
+
+    .search-box button {
+        padding: 12px 15px;
+    }
+
+    .section {
+        padding: 80px 5%;
+    }
+
+    .section-heading {
+        align-items: start;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .destination-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .large-card {
+        grid-column: span 1;
+    }
+
+    .large-card .card-image,
+    .card-image {
+        height: 320px;
+    }
+
+    .experience-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .map-section {
+        padding: 80px 5%;
+    }
+
+    .map-preview {
+        height: 350px;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 45px;
+    }
+
+    .cta {
+        margin: 50px 5%;
+        padding: 65px 30px;
+    }
+
+    .footer-top {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .footer-links {
+        gap: 50px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* =====================================================
+   DISCOVER MANIPUR
+===================================================== */
+
+.discover-box {
+    width: 570px;
+    max-width: 100%;
+
+    margin-top: 30px;
+
+    padding: 18px 20px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 16px;
+
+    text-decoration: none;
+
+    color: #173f2b;
+
+    background: rgba(255, 255, 255, 0.92);
+
+    border: 1px solid rgba(255, 255, 255, 0.8);
+
+    border-radius: 16px;
+
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+
+    transition: all 0.3s ease;
+
+    backdrop-filter: blur(8px);
+}
+
+
+.discover-box:hover {
+    transform: translateY(-4px);
+
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.13);
+}
+
+
+.discover-icon {
+    width: 48px;
+    height: 48px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #dcefe3;
+
+    color: #17633f;
+
+    font-size: 19px;
+}
+
+
+.discover-text {
+    flex: 1;
+}
+
+
+.discover-text h3 {
+    margin: 0;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 20px;
+
+    font-weight: 500;
+}
+
+
+.discover-text p {
+    margin: 4px 0 0;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
+    color: #66756c;
+}
+
+
+.discover-arrow {
+    width: 38px;
+    height: 38px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #173f2b;
+
+    color: white;
+
+    transition: transform 0.3s ease;
+}
+
+
+.discover-box:hover .discover-arrow {
+    transform: translateX(4px);
+}
+
+
+
+/* =====================================================
+   DISCOVER CARDS
+===================================================== */
+
+.discover-section {
+    padding: 110px 6%;
+
+    background: #f8f5ed;
+}
+
+
+.discover-section .section-heading {
+    max-width: 1250px;
+
+    margin: 0 auto 45px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-end;
+
+    gap: 40px;
+}
+
+
+.discover-section .section-heading h2 {
+    max-width: 700px;
+}
+
+
+.discover-intro {
+    max-width: 350px;
+
+    margin: 0;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+
+    color: #6b756f;
+}
+
+
+.discover-grid {
+    max-width: 1250px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 24px;
+}
+
+
+.discover-card {
+    background: white;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    text-decoration: none;
+
+    color: #173f2b;
+
+    box-shadow: 0 8px 25px rgba(20, 50, 35, 0.06);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+.discover-card:hover {
+    transform: translateY(-6px);
+
+    box-shadow: 0 18px 40px rgba(20, 50, 35, 0.12);
+}
+
+
+.discover-card-image {
+    height: 230px;
+
+    overflow: hidden;
+}
+
+
+.discover-card-image img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    transition: transform 0.5s ease;
+}
+
+
+.discover-card:hover .discover-card-image img {
+    transform: scale(1.05);
+}
+
+
+.discover-card-content {
+    position: relative;
+
+    padding: 22px 24px 25px;
+}
+
+
+.discover-card-content span {
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    font-weight: 600;
+
+    color: #5d8c72;
+}
+
+
+.discover-card-content h3 {
+    margin: 7px 0 6px;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 25px;
+
+    font-weight: 500;
+}
+
+
+.discover-card-content p {
+    max-width: 280px;
+
+    margin: 0;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+    color: #718078;
+}
+
+
+.discover-card-content > i {
+    position: absolute;
+
+    right: 22px;
+    bottom: 25px;
+
+    font-size: 14px;
+
+    color: #28704e;
+
+    transition: transform 0.3s ease;
+}
+
+
+.discover-card:hover .discover-card-content > i {
+    transform: translateX(5px);
+}
+
+/* =========================================
+   FIRST TIME IN MANIPUR
+========================================= */
+
+.starter-section {
+    background: #173f2b;
+    padding: 100px 6%;
+    text-align: center;
+}
+
+.starter-content {
+    max-width: 700px;
+    margin: auto;
+}
+
+.starter-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: #b9d4c2;
+}
+
+.starter-content h2 {
+    margin-top: 12px;
+
+    font-family: "Playfair Display", serif;
+    font-size: clamp(48px, 6vw, 70px);
+    font-weight: 500;
+
+    color: white;
+    line-height: 1;
+}
+
+.starter-title {
+    margin-top: 18px;
+
+    font-family: "Playfair Display", serif;
+    font-size: 24px;
+
+    color: #dcefe3;
+}
+
+.starter-description {
+    max-width: 540px;
+    margin: 14px auto 30px;
+
+    font-size: 14px;
+    line-height: 1.7;
+
+    color: rgba(255, 255, 255, .72);
+}
+
+.starter-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 14px 22px;
+
+    background: white;
+    color: #173f2b;
+
+    border-radius: 30px;
+
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    transition: .3s ease;
+}
+
+.starter-button:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, .18);
+}
+
+.starter-button i {
+    font-size: 13px;
+}
+
+/* =========================
+   EXPLORE THE MAP SECTION
+   ========================= */
+
+.map-section {
+    position: relative;
+    min-height: 100vh;
+    padding: 110px 6% 120px;
+    overflow: hidden;
+
+    background-image:
+        linear-gradient(
+            to bottom,
+            #f7faf7 0%,
+            rgba(247, 250, 247, 0.55) 10%,
+            rgba(10, 35, 25, 0.35) 28%,
+            rgba(10, 35, 25, 0.45) 72%,
+            rgba(247, 250, 247, 0.75) 90%,
+            #f7faf7 100%
+        ),
+        url("../static/images/map-bg.jpeg");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+
+/* Keep the text above the background */
+
+.map-section > * {
+    position: relative;
+    z-index: 2;
+}
+
+
+/* =========================
+   MAP PREVIEW
+   ========================= */
+
+.map-preview {
+    position: relative;
+    min-height: 600px;
+
+    background: transparent;
+
+    border-radius: 24px;
+    overflow: hidden;
+}
+
+
+/* =========================
+   OPTIONAL DARK OVERLAY
+   Helps the map stand out
+   ========================= */
+
+.map-preview::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: rgba(10, 35, 25, 0.12);
+
+    pointer-events: none;
+    z-index: 1;
+}
+
+
+/* Keep your actual map above overlay */
+
+.map-shape {
+    position: relative;
+    z-index: 2;
+}

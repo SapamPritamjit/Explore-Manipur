@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Travel & Accommodation | Explore Manipur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"DM Sans",sans-serif;background:#f8f5ed;color:#173f2b}
+a{color:inherit}
+.navbar{height:76px;padding:0 6%;display:flex;align-items:center;justify-content:space-between;background:rgba(248,245,237,.96);border-bottom:1px solid rgba(23,63,43,.08);position:sticky;top:0;z-index:20;backdrop-filter:blur(10px)}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:1.5px;font-size:13px}
+.logo-mark{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#173f2b;color:#fff;font-family:"Playfair Display",serif;font-size:17px}
+nav{display:flex;gap:30px}
+nav a{text-decoration:none;font-size:13px;color:#557362}
+nav a:hover{color:#173f2b}
+.nav-button{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:13px;border:1px solid rgba(23,63,43,.18);border-radius:999px;padding:10px 16px}
+
+.travel-hero{min-height:520px;padding:80px 7%;display:flex;align-items:flex-end;position:relative;background:linear-gradient(to top,rgba(10,45,30,.84),rgba(10,45,30,.12)),url("../static/images/travel.jpg");background-size:cover;background-position:center}
+.travel-hero-content{max-width:780px;color:#fff}
+.travel-hero-content span{font-size:11px;letter-spacing:3px;font-weight:600;opacity:.85}
+.travel-hero-content h1{margin:12px 0 0;font-family:"Playfair Display",serif;font-size:clamp(48px,7vw,82px);line-height:1;font-weight:500}
+.travel-hero-content p{max-width:620px;margin-top:20px;font-size:16px;line-height:1.7;opacity:.9}
+
+.travel-content{max-width:1150px;margin:auto;padding:80px 6% 110px}
+.back-link{display:inline-flex;align-items:center;gap:8px;margin-bottom:45px;color:#557362;font-size:13px;text-decoration:none}
+.section-intro{max-width:720px;margin-bottom:55px}
+.section-intro span,.accommodation-heading span{font-size:10px;letter-spacing:2px;color:#5d8c72;font-weight:600}
+.section-intro h2,.accommodation-heading h2{margin:10px 0 0;font-family:"Playfair Display",serif;font-weight:500;line-height:1.1}
+.section-intro h2{font-size:44px}
+.section-intro p{color:#66756c;line-height:1.75;font-size:14px;margin-top:18px}
+
+.travel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:100px}
+.travel-card{background:#fff;border-radius:20px;padding:30px;min-height:285px;border:1px solid rgba(23,63,43,.07);transition:transform .3s ease,box-shadow .3s ease}
+.travel-card:hover{transform:translateY(-5px);box-shadow:0 18px 45px rgba(23,63,43,.09)}
+.travel-icon{width:48px;height:48px;border-radius:14px;background:#edf5ef;color:#28704e;display:grid;place-items:center;font-size:19px;margin-bottom:22px}
+.travel-card h3{margin:0;font-family:"Playfair Display",serif;font-size:27px;font-weight:500}
+.travel-card p{margin-top:13px;color:#66756c;font-size:13px;line-height:1.7}
+.card-link{display:inline-flex;align-items:center;gap:8px;margin-top:18px;color:#28704e;text-decoration:none;font-size:12px;font-weight:600}
+.card-link i{font-size:10px;transition:transform .2s ease}
+.card-link:hover{color:#173f2b}
+.card-link:hover i{transform:translateX(3px)}
+
+.accommodation-heading{margin-bottom:45px}
+.accommodation-heading h2{font-size:42px}
+.category-note{max-width:650px;margin:14px 0 0;color:#66756c;font-size:13px;line-height:1.7}
+
+.recommendation-heading{margin:42px 0 24px}
+.recommendation-heading span{font-size:10px;letter-spacing:2px;color:#5d8c72;font-weight:600}
+.recommendation-heading h3{margin:8px 0 0;font-family:"Playfair Display",serif;font-size:30px;font-weight:500}
+.recommendation-heading p{margin:8px 0 0;color:#66756c;font-size:13px;line-height:1.6}
+
+.accommodation-categories{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    margin:0 0 18px;
+}
+
+.accommodation-category{
+    min-height:86px;
+    padding:18px 14px;
+    background:#fff;
+    border:1px solid rgba(23,63,43,.07);
+    border-radius:16px;
+    text-decoration:none;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+    color:#557362;
+    font-size:12px;
+    text-align:center;
+    transition:transform .25s ease, background .25s ease, color .25s ease;
+}
+
+.accommodation-category i{
+    color:#28704e;
+    font-size:17px;
+}
+
+.accommodation-category:hover{
+    transform:translateY(-3px);
+    background:#edf5ef;
+    color:#173f2b;
+}
+
+.category-scope{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    margin:0 0 28px;
+    color:#718077;
+    font-size:11px;
+}
+
+.category-scope i{
+    color:#28704e;
+    font-size:10px;
+}
+
+.stay-list{display:grid;gap:24px}
+.stay-card{display:grid;grid-template-columns:280px 1fr auto;gap:30px;align-items:center;background:#fff;border-radius:22px;padding:18px;border:1px solid rgba(23,63,43,.07)}
+.stay-image{height:190px;overflow:hidden;border-radius:16px}
+.stay-image img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+.stay-card:hover .stay-image img{transform:scale(1.04)}
+.stay-info h3{margin:0;font-family:"Playfair Display",serif;font-size:29px;font-weight:500}
+.stay-type{display:inline-block;margin-top:7px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#5d8c72;font-weight:600}
+.stay-info p{color:#66756c;font-size:13px;line-height:1.7;max-width:580px;margin:14px 0 0}
+.stay-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
+.stay-meta span{background:#edf5ef;color:#466553;padding:7px 10px;border-radius:999px;font-size:11px}
+.stay-button{white-space:nowrap;text-decoration:none;color:#fff;background:#173f2b;border-radius:999px;padding:12px 18px;font-size:12px}
+.stay-button:hover{background:#28704e}
+
+footer{background:#173f2b;color:#fff;padding:55px 6% 25px}
+.footer-top{max-width:1150px;margin:auto;display:flex;justify-content:space-between;gap:50px}
+.footer-brand p{color:rgba(255,255,255,.65);font-size:13px}
+.footer-links{display:flex;gap:80px}
+.footer-links h4{font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:15px}
+.footer-links a{display:block;text-decoration:none;color:rgba(255,255,255,.65);font-size:13px;margin-bottom:8px}
+.footer-bottom{max-width:1150px;margin:45px auto 0;padding-top:18px;border-top:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.5);font-size:11px}
+
+@media(max-width:850px){
+nav{display:none}.travel-grid{grid-template-columns:1fr}.stay-card{grid-template-columns:1fr}.stay-image{height:240px}.footer-top{flex-direction:column}
+.accommodation-categories{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:600px){
+.navbar{padding:0 5%}.travel-hero{min-height:500px;padding:60px 6%}.travel-content{padding:70px 6% 90px}.section-intro h2,.accommodation-heading h2{font-size:34px}.stay-image{height:210px}
+.accommodation-categories{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="logo">
+        <span class="logo-mark">M</span>
+        <span>SMART MANIPUR</span>
+    </div>
+    <nav>
+        <a href="index.html#experiences">Experiences</a>
+        <a href="index.html#destinations">Destinations</a>
+        <a href="index.html#map">Map</a>
+    </nav>
+    <a href="index.html" class="nav-button"><i class="fa-solid fa-arrow-left"></i> Back Home</a>
+</header>
+
+<section class="travel-hero">
+    <div class="travel-hero-content">
+        <span>PLAN YOUR JOURNEY • MANIPUR</span>
+        <h1>Travel & Stay</h1>
+        <p>Find convenient ways to move around Manipur and accommodation options that fit the way you want to experience the state.</p>
+    </div>
+</section>
+
+<main class="travel-content">
+
+    <a href="index.html#experiences" class="back-link">
+        <i class="fa-solid fa-arrow-left"></i> Back to Experiences
+    </a>
+
+    <div class="section-intro">
+        <span>GETTING AROUND MANIPUR</span>
+        <h2>Choose your way around.</h2>
+        <p>From flexible private rides to everyday local transport, explore the options that can help you move comfortably between Imphal and destinations across Manipur.</p>
+    </div>
+
+    <section class="travel-grid">
+
+        <article class="travel-card">
+            <div class="travel-icon"><i class="fa-solid fa-car-side"></i></div>
+            <h3>Private Cabs</h3>
+            <p>A convenient option for airport transfers, sightseeing and longer journeys when you want the flexibility to travel according to your itinerary.</p>
+            <a href="#" class="card-link">Find a Cab <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+
+        <article class="travel-card">
+            <div class="travel-icon"><i class="fa-solid fa-taxi"></i></div>
+            <h3>Local Auto-Rickshaws</h3>
+            <p>A practical choice for shorter journeys around Imphal, helping you get between markets, landmarks and neighbourhoods with ease.</p>
+            <a href="https://www.google.com/maps/search/auto+ricksaw+stands+Imphal+Manipur" target="_blank" rel="noopener noreferrer" class="card-link">
+                Find Nearby Stands <i class="fa-solid fa-location-arrow"></i>
+            </a>
+        </article>
+
+        <article class="travel-card">
+            <div class="travel-icon"><i class="fa-solid fa-bus"></i></div>
+            <h3>Bus Connections</h3>
+            <p>An accessible way to connect Imphal with towns and destinations across the state, making it useful for travellers planning wider journeys.</p>
+            <a href="#" class="card-link">Explore Bus Routes <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+
+    </section>
+
+    <div class="accommodation-heading">
+        <span>WHERE TO STAY</span>
+        <h2>Accommodation for every journey.</h2>
+    </div>
+
+    <div class="accommodation-categories">
+        <a href="#hotels" class="accommodation-category">
+            <i class="fa-solid fa-hotel"></i>
+            <span>Hotels</span>
+        </a>
+        <a href="#resorts" class="accommodation-category">
+            <i class="fa-solid fa-tree-city"></i>
+            <span>Resorts</span>
+        </a>
+        <a href="#homestays" class="accommodation-category">
+            <i class="fa-solid fa-house"></i>
+            <span>Homestays</span>
+        </a>
+        <a href="#lodges" class="accommodation-category">
+            <i class="fa-solid fa-mountain-sun"></i>
+            <span>Lodges & Guesthouses</span>
+        </a>
+    </div>
+
+    <div class="recommendation-heading">
+        <span>CURATED FOR YOUR STAY</span>
+        <h3>Recommended Stays</h3>
+        <p>Selected accommodation options to help you plan your stay in Manipur.</p>
+    </div>
+
+    <section class="stay-list">
+
+        <article class="stay-card" id="hotels">
+            <div class="stay-image">
+                <img src="../static/images/hotel-classic.jpg" alt="The Classic Hotel in Imphal">
+            </div>
+            <div class="stay-info">
+                <h3>The Classic Hotel</h3>
+                <span class="stay-type">City Stay · Imphal</span>
+                <p>
+                    A centrally located stay in Imphal, making it a convenient
+                    base for exploring the city's heritage sites, markets and
+                    cultural attractions.
+                </p>
+                <div class="stay-meta">
+                    <span>Imphal</span>
+                    <span>City access</span>
+                    <span>Hotel</span>
+                </div>
+            </div>
+            <a href="https://www.theclassichotel.in/" target="_blank" rel="noopener noreferrer" class="stay-button">
+                View Hotel
+            </a>
+        </article>
+
+        <article class="stay-card" id="resorts">
+            <div class="stay-image">
+                <img src="../static/images/sendra-resort.jpg" alt="Sendra Park and Resort overlooking Loktak Lake">
+            </div>
+            <div class="stay-info">
+                <h3>Sendra Park & Resort</h3>
+                <span class="stay-type">Lakeside & Resort Stay · Sendra</span>
+                <p>
+                    Set among the hills of Sendra overlooking Loktak Lake,
+                    this resort offers a nature-focused stay with views of
+                    the lake, surrounding landscape and local life.
+                </p>
+                <div class="stay-meta">
+                    <span>Loktak Lake</span>
+                    <span>Nature stay</span>
+                    <span>Resort</span>
+                </div>
+            </div>
+            <a href="https://www.classicgroupofhotels.com/sendra-resort/" target="_blank" rel="noopener noreferrer" class="stay-button">
+                View Resort
+            </a>
+        </article>
+
+        <article class="stay-card" id="lodges">
+            <div class="stay-image">
+                <img src="../static/images/chingri-ngayin.jpg" alt="Chingri Ngayin Lodge in Ukhrul">
+            </div>
+            <div class="stay-info">
+                <h3>Chingri Ngayin Lodge</h3>
+                <span class="stay-type">Hill & Nature Stay · Ukhrul</span>
+                <p>
+                    A stay option in Ukhrul for travellers exploring the
+                    district's hills, landscapes and cultural experiences
+                    beyond the Imphal valley.
+                </p>
+                <div class="stay-meta">
+                    <span>Ukhrul</span>
+                    <span>Hill destination</span>
+                    <span>Lodge</span>
+                </div>
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Chingri+Ngayin+Lodge+Ukhrul+Manipur" target="_blank" rel="noopener noreferrer" class="stay-button">
+                View Location
+            </a>
+        </article>
+
+    </section>
+
+</main>
+
+<footer>
+    <div class="footer-top">
+        <div class="footer-brand">
+            <div class="logo"><span class="logo-mark">M</span> Explore Manipur</div>
+            <p>Discover. Experience. Remember.</p>
+        </div>
+        <div class="footer-links">
+            <div>
+                <h4>Explore</h4>
+                <a href="index.html#destinations">Destinations</a>
+                <a href="index.html#experiences">Experiences</a>
+                <a href="index.html#map">Map</a>
+            </div>
+            <div>
+                <h4>Discover</h4>
+                <a href="discover.html">Culture & Heritage</a>
+                <a href="discover.html">Wildlife</a>
+                <a href="discover.html">Traditions</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">© 2026 Explore Manipur</div>
+</footer>
+
+</body>
+</html>

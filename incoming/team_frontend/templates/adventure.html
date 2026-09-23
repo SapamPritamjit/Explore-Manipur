@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Adventure in Manipur | Smart Manipur Tourism</title>
+
+    <link rel="stylesheet" href="../static/style.css">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap"
+          rel="stylesheet">
+
+    <style>
+
+        .nature-page {
+            background: #f7faf7;
+        }
+
+        /* HERO */
+
+        .nature-hero {
+            height: 520px;
+            position: relative;
+            background-image: url("../static/images/adventure.png");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .nature-hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to top,
+                rgba(10, 35, 25, .82),
+                rgba(10, 35, 25, .10)
+            );
+        }
+
+        .nature-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1250px;
+            width: 100%;
+            margin: auto;
+            padding: 80px 6%;
+            color: white;
+        }
+
+        .nature-hero-content span {
+            font-size: 11px;
+            letter-spacing: 3px;
+            opacity: .85;
+        }
+
+        .nature-hero-content h1 {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(48px, 7vw, 82px);
+            font-weight: 500;
+            line-height: 1;
+            margin: 12px 0 18px;
+        }
+
+        .nature-hero-content p {
+            max-width: 600px;
+            font-size: 15px;
+            line-height: 1.7;
+            opacity: .9;
+        }
+
+        /* CONTENT */
+
+        .nature-content {
+            max-width: 1250px;
+            margin: auto;
+            padding: 100px 6%;
+        }
+
+        .nature-heading {
+            margin-bottom: 70px;
+        }
+
+        .nature-heading span {
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: #56806a;
+        }
+
+        .nature-heading h2 {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(38px, 5vw, 58px);
+            font-weight: 500;
+            color: #173f2b;
+            margin-top: 10px;
+        }
+
+        /* DESTINATION */
+
+        .nature-place {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 70px;
+            align-items: center;
+            margin-bottom: 110px;
+        }
+
+        .nature-place.reverse {
+            direction: rtl;
+        }
+
+        .nature-place.reverse > * {
+            direction: ltr;
+        }
+
+        .nature-image {
+            height: 500px;
+            border-radius: 24px;
+            overflow: hidden;
+        }
+
+        .nature-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .5s ease;
+        }
+
+        .nature-place:hover .nature-image img {
+            transform: scale(1.04);
+        }
+
+        .nature-number {
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: #71917d;
+        }
+
+        .nature-info h3 {
+            font-family: "Playfair Display", serif;
+            font-size: 40px;
+            font-weight: 500;
+            line-height: 1.1;
+            color: #173f2b;
+            margin: 12px 0 18px;
+        }
+
+        .nature-description {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #66756c;
+            max-width: 520px;
+        }
+
+        /* LOCATION */
+
+        .nature-location {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            margin: 22px 0;
+            font-size: 13px;
+            color: #52645a;
+        }
+
+        .nature-location i {
+            color: #28724c;
+        }
+
+        .map-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: #17633f;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 28px;
+            transition: .25s ease;
+        }
+
+        .map-link:hover {
+            gap: 12px;
+            color: #0d4a2c;
+        }
+
+        /* WHY VISIT */
+
+        .nature-info h4 {
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: #71917d;
+            margin-bottom: 13px;
+        }
+
+        .nature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 28px;
+        }
+
+        .nature-list li {
+            font-size: 13px;
+            color: #4f6057;
+            margin-bottom: 9px;
+            padding-left: 18px;
+            position: relative;
+        }
+
+        .nature-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #28724c;
+            font-size: 17px;
+        }
+
+        /* TRAVEL TIPS */
+
+        .travel-tips {
+            background: #edf7ef;
+            border-radius: 14px;
+            padding: 18px 20px;
+            max-width: 520px;
+        }
+
+        .travel-tips h4 {
+            margin-bottom: 10px;
+            color: #173f2b;
+        }
+
+        .travel-tips ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .travel-tips li {
+            font-size: 12px;
+            color: #607067;
+            margin-bottom: 7px;
+        }
+
+        .travel-tips li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* BACK HOME */
+
+        .back-home {
+            text-align: center;
+            margin-top: -30px;
+            margin-bottom: 80px;
+        }
+
+        .back-home a {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            text-decoration: none;
+            color: #173f2b;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 800px) {
+
+            .nature-hero {
+                height: 470px;
+            }
+
+            .nature-hero-content {
+                padding: 60px 6%;
+            }
+
+            .nature-content {
+                padding: 70px 6%;
+            }
+
+            .nature-place,
+            .nature-place.reverse {
+                grid-template-columns: 1fr;
+                gap: 35px;
+                direction: ltr;
+                margin-bottom: 80px;
+            }
+
+            .nature-image {
+                height: 350px;
+            }
+
+            .nature-info h3 {
+                font-size: 34px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body class="nature-page">
+
+    <!-- NAVBAR -->
+
+<header class="navbar">
+
+    <div class="logo">
+
+    <span class="logo-mark">
+        <img src="../static/images/logo.jpeg" alt="Smart Manipur">
+    </span>
+
+        <span>
+            Explore Manipur
+        </span>
+
+    </div>
+
+
+    <nav>
+
+        <a href="index.html#experiences">
+            Experiences
+        </a>
+
+        <a href="index.html#destinations">
+            Destinations
+        </a>
+
+        <a href="index.html#map">
+            Map
+        </a>
+
+    </nav>
+
+
+    <a href="index.html"
+       class="nav-button">
+
+        <i class="fa-solid fa-arrow-left"></i>
+
+        Back Home
+
+    </a>
+
+</header>
+
+
+    <!-- HERO -->
+
+    <section class="nature-hero">
+
+        <div class="nature-hero-content">
+
+            <span>EXPERIENCE • ADVENTURE</span>
+
+            <h1>Adventure</h1>
+
+            <p>
+                Trek through mountain landscapes, explore hidden caves
+                and experience the adventurous side of Manipur.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- CONTENT -->
+
+    <main class="nature-content">
+
+        <div class="nature-heading">
+
+            <span>ADVENTURE IN MANIPUR</span>
+
+            <h2>
+                Trails worth taking.
+            </h2>
+
+        </div>
+
+
+        <!-- SHIRUI HILLS -->
+
+        <article class="nature-place" id="shirui">
+
+            <div class="nature-image">
+                <img src="../static/images/shirui.jpg"
+                     alt="Shirui Hills, Ukhrul">
+            </div>
+
+            <div class="nature-info">
+
+                <span class="nature-number"></span>
+
+                <h3>Shirui Hills</h3>
+
+                <p class="nature-description">
+                    Home to the rare Shirui Lily, found only in the
+                    Siroy Hill Range of Ukhrul. The hills offer
+                    beautiful landscapes and a rewarding trekking
+                    experience.
+                </p>
+
+                <div class="nature-location">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Ukhrul District, Manipur</span>
+                </div>
+
+                <a href="map.html#shirui" class="map-link">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    View on Map
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <h4>WHY VISIT?</h4>
+
+                <ul class="nature-list">
+                    <li>Trek through beautiful mountain landscapes</li>
+                    <li>See the rare Shirui Lily</li>
+                    <li>Enjoy panoramic views of the surrounding hills</li>
+                    <li>Experience one of Manipur's iconic trekking destinations</li>
+                </ul>
+
+                <div class="travel-tips">
+
+                    <h4>TRAVEL TIPS</h4>
+
+                    <ul>
+                        <li>Wear proper trekking shoes</li>
+                        <li>Carry sufficient water</li>
+                        <li>Check weather conditions before trekking</li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- DZÜKOU VALLEY -->
+
+        <article class="nature-place reverse">
+
+            <div class="nature-image">
+                <img src="../static/images/dzukou.jpg"
+                     alt="Dzükou Valley">
+            </div>
+
+            <div class="nature-info">
+
+                <span class="nature-number"></span>
+
+                <h3>Dzükou Valley</h3>
+
+                <p class="nature-description">
+                    Located near the Manipur–Nagaland border, Dzükou
+                    Valley is famous for its seasonal flowers and
+                    breathtaking green landscapes. It is also one of
+                    the region's popular trekking destinations.
+                </p>
+
+                <div class="nature-location">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Senapati District, Manipur</span>
+                </div>
+
+                <a href="map.html#dzukou" class="map-link">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    View on Map
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <h4>WHY VISIT?</h4>
+
+                <ul class="nature-list">
+                    <li>Experience scenic valley landscapes</li>
+                    <li>Explore seasonal flowers and vegetation</li>
+                    <li>Take on a rewarding trekking route</li>
+                    <li>Enjoy peaceful mountain surroundings</li>
+                </ul>
+
+                <div class="travel-tips">
+
+                    <h4>TRAVEL TIPS</h4>
+
+                    <ul>
+                        <li>Wear comfortable trekking footwear</li>
+                        <li>Carry water and basic trekking essentials</li>
+                        <li>Check local weather and trail conditions</li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- THARON CAVE -->
+
+        <article class="nature-place">
+
+            <div class="nature-image">
+                <img src="../static/images/tharon.png"
+                     alt="Tharon Cave, Manipur">
+            </div>
+
+            <div class="nature-info">
+
+                <span class="nature-number"></span>
+
+                <h3>Tharon Cave</h3>
+
+                <p class="nature-description">
+                    Located near Tamenglong, Tharon Cave is a
+                    fascinating natural cave system believed to have
+                    been used as shelter thousands of years ago.
+                    Excavations have also revealed artefacts
+                    associated with the Hoabinhian culture of
+                    North Vietnam.
+                </p>
+
+                <div class="nature-location">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Near Tamenglong, Tamenglong District, Manipur</span>
+                </div>
+
+                <a href="map.html#tharon" class="map-link">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    View on Map
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+                <h4>WHY VISIT?</h4>
+
+                <ul class="nature-list">
+                    <li>Explore a fascinating natural cave system</li>
+                    <li>Discover the area's archaeological significance</li>
+                    <li>Experience a less-explored side of Manipur</li>
+                    <li>Combine adventure with cultural exploration</li>
+                </ul>
+
+                <div class="travel-tips">
+
+                    <h4>TRAVEL TIPS</h4>
+
+                    <ul>
+                        <li>Wear sturdy footwear</li>
+                        <li>Carry a flashlight and essential supplies</li>
+                        <li>Explore with local guidance where appropriate</li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- BACK -->
+
+        <div class="back-home">
+
+            <a href="index.html">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back to Explore Manipur
+            </a>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="footer-bottom">
+            <span>© 2026 Explore Manipur</span>
+        </div>
+
+    </footer>
+
+
+</body>
+</html>

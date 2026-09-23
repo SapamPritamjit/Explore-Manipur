@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nature | Smart Manipur Tourism</title>
+
+
+    <!-- Google Fonts -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap"
+          rel="stylesheet">
+
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+    <!-- Main CSS -->
+
+    <link rel="stylesheet"
+          href="../static/style.css">
+
+
+    <!-- Nature Page CSS -->
+
+    <style>
+
+        /* =========================================
+           NATURE PAGE
+        ========================================= */
+
+        .nature-page {
+            background: #f8f5ed;
+            min-height: 100vh;
+        }
+
+
+        /* =========================================
+           PAGE HERO
+        ========================================= */
+
+        .nature-hero {
+            min-height: 520px;
+
+            position: relative;
+
+            display: flex;
+            align-items: flex-end;
+
+            padding: 80px 7%;
+
+            background:
+                linear-gradient(
+                    to top,
+                    rgba(10, 45, 30, 0.82),
+                    rgba(10, 45, 30, 0.12)
+                ),
+                url("../static/images/nature.jpg");
+
+            background-size: cover;
+            background-position: center;
+        }
+
+
+        .nature-hero-content {
+            max-width: 800px;
+
+            color: white;
+        }
+
+
+        .nature-hero-content span {
+            font-size: 11px;
+
+            letter-spacing: 3px;
+
+            font-weight: 600;
+
+            opacity: 0.85;
+        }
+
+
+        .nature-hero-content h1 {
+            margin-top: 12px;
+
+            font-family: "Playfair Display", serif;
+
+            font-size: clamp(48px, 7vw, 82px);
+
+            font-weight: 500;
+
+            line-height: 1;
+        }
+
+
+        .nature-hero-content p {
+            max-width: 600px;
+
+            margin-top: 20px;
+
+            font-size: 16px;
+
+            line-height: 1.7;
+
+            opacity: 0.9;
+        }
+
+
+        /* =========================================
+           PAGE CONTENT
+        ========================================= */
+
+        .nature-content {
+            max-width: 1150px;
+
+            margin: auto;
+
+            padding: 100px 6%;
+        }
+
+
+        .nature-intro {
+            max-width: 700px;
+
+            margin-bottom: 70px;
+        }
+
+
+        .nature-intro span {
+            font-size: 10px;
+
+            letter-spacing: 2px;
+
+            color: #5d8c72;
+
+            font-weight: 600;
+        }
+
+
+        .nature-intro h2 {
+            margin-top: 10px;
+
+            font-family: "Playfair Display", serif;
+
+            font-size: 42px;
+
+            font-weight: 500;
+
+            color: #173f2b;
+        }
+
+
+        /* =========================================
+           DESTINATION
+        ========================================= */
+
+        .nature-place {
+            display: grid;
+
+            grid-template-columns: 0.95fr 1.05fr;
+
+            gap: 55px;
+
+            align-items: center;
+
+            margin-bottom: 100px;
+        }
+
+
+        .nature-place:nth-child(even) {
+            grid-template-columns: 1.05fr 0.95fr;
+        }
+
+
+        .nature-place:nth-child(even)
+        .nature-place-image {
+            order: 2;
+        }
+
+
+        .nature-place-image {
+            height: 480px;
+
+            overflow: hidden;
+
+            border-radius: 24px;
+        }
+
+
+        .nature-place-image img {
+            width: 100%;
+            height: 100%;
+
+            display: block;
+
+            object-fit: cover;
+
+            transition: transform 0.6s ease;
+        }
+
+
+        .nature-place:hover
+        .nature-place-image img {
+            transform: scale(1.04);
+        }
+
+
+        .nature-place-info {
+            color: #173f2b;
+        }
+
+
+        .place-number {
+            font-size: 11px;
+
+            letter-spacing: 2px;
+
+            color: #6d987e;
+        }
+
+
+        .nature-place-info h2 {
+            margin-top: 10px;
+
+            font-family: "Playfair Display", serif;
+
+            font-size: 38px;
+
+            font-weight: 500;
+
+            line-height: 1.1;
+        }
+
+
+        .place-description {
+            margin-top: 18px;
+
+            color: #66756c;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+        }
+
+
+        /* =========================================
+           LOCATION
+        ========================================= */
+
+        .place-location {
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 10px;
+
+            margin-top: 22px;
+
+            font-size: 13px;
+
+            color: #3e584a;
+        }
+
+
+        .place-location i {
+            margin-top: 3px;
+
+            color: #28704e;
+        }
+
+
+        /* =========================================
+           MAP BUTTON
+        ========================================= */
+
+        .map-link {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            margin-top: 14px;
+
+            color: #28704e;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            text-decoration: none;
+
+            border-bottom: 1px solid #28704e;
+
+            padding-bottom: 3px;
+
+            transition: gap 0.25s ease;
+        }
+
+
+        .map-link:hover {
+            gap: 13px;
+        }
+
+
+        /* =========================================
+           WHY VISIT
+        ========================================= */
+
+        .why-visit {
+            margin-top: 30px;
+        }
+
+
+        .why-visit h4,
+        .travel-tips h4 {
+            font-size: 11px;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 12px;
+
+            color: #5d8c72;
+        }
+
+
+        .why-visit ul {
+            list-style: none;
+
+            padding: 0;
+            margin: 0;
+        }
+
+
+        .why-visit li {
+            position: relative;
+
+            padding-left: 20px;
+
+            margin-bottom: 8px;
+
+            font-size: 13px;
+
+            color: #66756c;
+        }
+
+
+        .why-visit li::before {
+            content: "•";
+
+            position: absolute;
+
+            left: 2px;
+
+            color: #28704e;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================================
+           TRAVEL TIPS
+        ========================================= */
+
+        .travel-tips {
+            margin-top: 28px;
+
+            padding: 20px;
+
+            background: #edf5ef;
+
+            border-radius: 15px;
+        }
+
+
+        .travel-tips p {
+            margin: 7px 0;
+
+            font-size: 13px;
+
+            color: #66756c;
+        }
+
+
+        .travel-tips strong {
+            color: #304d3c;
+        }
+
+
+        /* =========================================
+           BACK LINK
+        ========================================= */
+
+        .back-link {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            margin-bottom: 35px;
+
+            color: #557362;
+
+            font-size: 13px;
+
+            text-decoration: none;
+        }
+
+
+        .back-link:hover {
+            color: #173f2b;
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 800px) {
+
+            .nature-place,
+            .nature-place:nth-child(even) {
+
+                grid-template-columns: 1fr;
+
+                gap: 30px;
+
+            }
+
+
+            .nature-place:nth-child(even)
+            .nature-place-image {
+
+                order: initial;
+
+            }
+
+
+            .nature-place-image {
+
+                height: 350px;
+
+            }
+
+
+            .nature-hero {
+
+                min-height: 500px;
+
+                padding: 60px 6%;
+
+            }
+
+
+            .nature-content {
+
+                padding: 70px 6%;
+
+            }
+
+
+            .nature-intro h2 {
+
+                font-size: 34px;
+
+            }
+
+
+            .nature-place-info h2 {
+
+                font-size: 32px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body class="nature-page">
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<header class="navbar">
+
+    <div class="logo">
+
+    <span class="logo-mark">
+        <img src="../static/images/logo.jpeg" alt="Smart Manipur">
+    </span>
+
+        <span>
+            SMART MANIPUR
+        </span>
+
+    </div>
+
+
+    <nav>
+
+        <a href="index.html#experiences">
+            Experiences
+        </a>
+
+        <a href="index.html#destinations">
+            Destinations
+        </a>
+
+        <a href="index.html#map">
+            Map
+        </a>
+
+    </nav>
+
+
+    <a href="index.html"
+       class="nav-button">
+
+        <i class="fa-solid fa-arrow-left"></i>
+
+        Back Home
+
+    </a>
+
+</header>
+
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="nature-hero">
+
+    <div class="nature-hero-content">
+
+        <span>
+            EXPERIENCE • NATURE
+        </span>
+
+
+        <h1>
+            Nature
+        </h1>
+
+
+        <p>
+            From floating islands and rare wildlife to
+            mist-covered hills, discover the landscapes
+            that make Manipur unforgettable.
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CONTENT
+===================================================== -->
+
+<main class="nature-content">
+
+
+    <a href="index.html#experiences"
+       class="back-link">
+
+        <i class="fa-solid fa-arrow-left"></i>
+
+        Back to Experiences
+
+    </a>
+
+
+
+    <div class="nature-intro">
+
+        <span>
+            NATURE OF MANIPUR
+        </span>
+
+
+        <h2>
+            Landscapes worth discovering.
+        </h2>
+
+    </div>
+
+
+
+    <!-- =================================================
+         LOKTAK LAKE
+    ================================================== -->
+
+    <article class="nature-place">
+
+
+        <div class="nature-place-image">
+
+            <img
+                src="../static/images/loktak-alt.jpg"
+                alt="Loktak Lake, Manipur"
+            >
+
+        </div>
+
+
+
+        <div class="nature-place-info">
+
+
+            <span class="place-number">
+                01 / 03
+            </span>
+
+
+            <h2>
+                Loktak Lake
+            </h2>
+
+
+            <p class="place-description">
+
+                Manipur's iconic freshwater lake, famous for
+                its floating phumdis and peaceful landscapes.
+
+            </p>
+
+
+
+            <div class="place-location">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                <span>
+                    Moirang, Bishnupur District, Manipur
+                </span>
+
+            </div>
+
+
+            <!-- VIEW ON MAP -->
+
+            <a href="#"
+               class="map-link">
+
+                View on Map
+
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+            </a>
+
+
+
+            <!-- WHY VISIT -->
+
+            <div class="why-visit">
+
+                <h4>
+                    Why Visit?
+                </h4>
+
+
+                <ul>
+
+                    <li>
+                        Experience the unique floating islands
+                    </li>
+
+                    <li>
+                        Enjoy scenic lake views and boating
+                    </li>
+
+                    <li>
+                        Explore the surrounding local culture
+                    </li>
+
+                    <li>
+                        Close to Keibul Lamjao National Park
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+
+            <!-- TRAVEL TIPS -->
+
+            <div class="travel-tips">
+
+                <h4>
+                    Travel Tips
+                </h4>
+
+
+                <p>
+                    <strong>Best time:</strong>
+                    October–April
+                </p>
+
+
+                <p>
+                    Visit in the morning or around sunset
+                </p>
+
+
+                <p>
+                    Carry water and comfortable footwear
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </article>
+
+
+
+    <!-- =================================================
+         KEIBUL LAMJAO
+    ================================================== -->
+
+    <article class="nature-place">
+
+
+        <div class="nature-place-image">
+
+            <img
+                src="../static/images/keibul.jpeg"
+                alt="Keibul Lamjao National Park"
+            >
+
+        </div>
+
+
+
+        <div class="nature-place-info">
+
+
+            <span class="place-number">
+                02 / 03
+            </span>
+
+
+            <h2>
+                Keibul Lamjao National Park
+            </h2>
+
+
+            <p class="place-description">
+
+                The world's only floating national park, famous
+                for its unique phumdis and home to the endangered
+                Sangai deer.
+
+            </p>
+
+
+
+            <div class="place-location">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                <span>
+                    Bishnupur District, Manipur
+                </span>
+
+            </div>
+
+
+
+            <!-- VIEW ON MAP -->
+
+            <a href="#"
+               class="map-link">
+
+                View on Map
+
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+            </a>
+
+
+
+            <!-- WHY VISIT -->
+
+            <div class="why-visit">
+
+                <h4>
+                    Why Visit?
+                </h4>
+
+
+                <ul>
+
+                    <li>
+                        See the rare Sangai deer
+                    </li>
+
+                    <li>
+                        Experience its unique floating ecosystem
+                    </li>
+
+                    <li>
+                        Enjoy scenic wetlands and wildlife
+                    </li>
+
+                    <li>
+                        Explore one of Manipur's distinctive landscapes
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+
+            <!-- TRAVEL TIPS -->
+
+            <div class="travel-tips">
+
+                <h4>
+                    Travel Tips
+                </h4>
+
+
+                <p>
+                    <strong>Best time:</strong>
+                    October–March
+                </p>
+
+
+                <p>
+                    Visit during daylight for better wildlife viewing
+                </p>
+
+
+                <p>
+                    Carry binoculars and comfortable footwear
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </article>
+
+
+
+    <!-- =================================================
+         SHIRUI HILLS
+    ================================================== -->
+
+    <article class="nature-place">
+
+
+        <div class="nature-place-image">
+
+            <img
+                src="../static/images/shirui.jpg"
+                alt="Shirui Hills, Ukhrul, Manipur"
+            >
+
+        </div>
+
+
+
+        <div class="nature-place-info">
+
+
+            <span class="place-number">
+                03 / 03
+            </span>
+
+
+            <h2>
+                Shirui Hills
+            </h2>
+
+
+            <p class="place-description">
+
+                A beautiful hill destination in Ukhrul, known
+                for the rare Shirui Lily and breathtaking
+                mountain scenery.
+
+            </p>
+
+
+
+            <div class="place-location">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                <span>
+                    Ukhrul District, Manipur
+                </span>
+
+            </div>
+
+
+
+            <!-- VIEW ON MAP -->
+
+            <a href="#"
+               class="map-link">
+
+                View on Map
+
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+            </a>
+
+
+
+            <!-- WHY VISIT -->
+
+            <div class="why-visit">
+
+                <h4>
+                    Why Visit?
+                </h4>
+
+
+                <ul>
+
+                    <li>
+                        See the famous Shirui Lily
+                    </li>
+
+                    <li>
+                        Enjoy panoramic mountain views
+                    </li>
+
+                    <li>
+                        Experience peaceful hill landscapes
+                    </li>
+
+                    <li>
+                        Great for trekking and nature photography
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+
+            <!-- TRAVEL TIPS -->
+
+            <div class="travel-tips">
+
+                <h4>
+                    Travel Tips
+                </h4>
+
+
+                <p>
+                    <strong>Best time:</strong>
+                    April–June for Shirui Lily season
+                </p>
+
+
+                <p>
+                    Carry comfortable trekking shoes
+                </p>
+
+
+                <p>
+                    Check weather conditions before heading out
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </article>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <div class="footer-top">
+
+
+        <div class="footer-brand">
+
+            <div class="logo">
+
+                <span class="logo-mark">
+                    M
+                </span>
+
+                Explore Manipur
+
+            </div>
+
+
+            <p>
+                Discover. Experience. Remember.
+            </p>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <div>
+
+                <h4>
+                    Explore
+                </h4>
+
+                <a href="index.html#destinations">
+                    Destinations
+                </a>
+
+                <a href="index.html#experiences">
+                    Experiences
+                </a>
+
+                <a href="index.html#map">
+                    Map
+                </a>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Discover
+                </h4>
+
+                <a href="discover.html">
+                    Culture & Heritage
+                </a>
+
+                <a href="discover.html">
+                    Wildlife
+                </a>
+
+                <a href="discover.html">
+                    Traditions
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <span>
+            © 2026 Explore Manipur
+        </span>
+
+    </div>
+
+</footer>
+
+
+</body>
+
+</html>
